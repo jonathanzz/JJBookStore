@@ -18,15 +18,11 @@ namespace JJBookStore.Models
         [Required]
         [DataType(DataType.EmailAddress)]
         public string EmailAddress { get; set; }
-        [StringLength(20, ErrorMessage = "Nickname cannot be longer than 20 characters.")]
-        public string NickName { get; set; }
-        [Required]
         [DataType(DataType.Date)]
-        public DateTime? BirthDate { get; set; }
         [Required]
+        public DateTime? BirthDate { get; set; }
         [StringLength(30, ErrorMessage = "First name cannot be longer than 30 characters.")]
         public string FirstName { get; set; }
-        [Required]
         [StringLength(30, ErrorMessage = "Last name cannot be longer than 30 characters.")]
         public string LastName { get; set; }
         public string Address { get; set; }

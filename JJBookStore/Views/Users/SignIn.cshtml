@@ -1,0 +1,33 @@
+﻿@model JJBookStore.ViewModels.SignInViewModel
+@{
+    ViewBag.Title = "Sign In";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>SignIn</h2>
+@using (Html.BeginForm("SignIn", "Users", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true);
+    <div>
+        <fieldset>
+            <legend>Please Login Here</legend>
+            <div class="editor-label">@Html.LabelFor(u => u.SignInName)</div>
+            <div class="editor-field">
+                @Html.TextBoxFor(u => u.SignInName)
+                @Html.ValidationMessageFor(u => u.SignInName)
+            </div>
+            <div class="editor-label">@Html.LabelFor(u => u.Password)</div>
+            <div class="editor-field">
+                @Html.PasswordFor(u => u.Password)
+                @Html.ValidationMessageFor(u => u.Password)
+            </div>
+            <div class="checkbox">
+                @Html.CheckBoxFor(u => u.RememberMe)
+                @Html.LabelFor(u => u.RememberMe)
+            </div>
+            <input type="submit" value="Sign In" />
+        </fieldset>
+        <p>If you don't have an account, please register here</p>
+        <a>@Html.ActionLink("Register", "Register", "Users")</a>
+    </div>
+}  
