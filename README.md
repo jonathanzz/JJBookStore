@@ -14,6 +14,7 @@ For book: Create, Edit, Show details, Add to shopping cart, Delete
 #### 13/8
 - Hidden URL parameters while doing GET request(ie. user detail)
 - Add authorization method instead of store in Session
+- Bug of duplicate Email or Username can be registered
 
 #### 14/8
 - Find a Email Authentition method for user validation
