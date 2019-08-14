@@ -1,5 +1,22 @@
 # JJBookStore
 Fully-functional book store, ASP.NET MVC web app.
+********************************************************************************************************
+## Things to do 
+#### 13/8
+- Hidden URL parameters while doing GET request(ie. user detail)
+- Add authorization method instead of store in Session 
+
+#### 14/8
+- Find a Email Authentition method for user validation
+- Solution for Session Cookie not timeout after close browser
+- Book search box with seletive search method(passing two parameters)
+
+#### 15/8
+
+
+
+
+*******************************************************************************************************
 
 ## Getting Started
 
@@ -12,6 +29,26 @@ What things you need to install the software and how to install them
 ```
 Give examples
 ```
+##### Development Environment
+
+Windows 10 Home 64bit, Visual Studio Professional 2017, Microsoft SQL Server 2017, Google Chrome Version 76.0
+
+##### Environment Setup
+
+Create new ASP.NET Web Application(.NET Framework) in Visual Studio, Choose MVC Template with No Authentition.
+Install References through Nuget Package
+```
+Install-Package EntityFramework
+```
+Use EntityFramework Code First method to create Database tables through exsiting Model files
+Add migrations to Database
+```
+Enable-Migrations
+
+Add-Migration 0001
+
+Update-Database -Verbose
+```
 
 ### Installing
 
@@ -19,15 +56,7 @@ A step by step series of examples that tell you how to get a development env run
 
 Say what the step will be
 
-```
-Give the example
-```
 
-And repeat
-
-```
-until finished
-```
 
 End with an example of getting some data out of the system or using it for a little demo
 
