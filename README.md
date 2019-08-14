@@ -1,13 +1,23 @@
 # JJBookStore
 Fully-functional book store, ASP.NET MVC web app.
+
+This is my first ASP.NET MVC web application. Users can search book and add to shopping cart to purchase it. Payment function module has not finished yet. In this book store, every user can be buyers and sellers. 
+
+### Function detail
+For user: Register, Sign in, Sign out, Show profile, Edit profile, Change password, Forget password, Manage Shopping cart
+
+For book: Create, Edit, Show details, Add to shopping cart, Delete
+
+
 ********************************************************************************************************
 ## Things to do 
 #### 13/8
 - Hidden URL parameters while doing GET request(ie. user detail)
-- Add authorization method instead of store in Session 
+- Add authorization method instead of store in Session
 
 #### 14/8
 - Find a Email Authentition method for user validation
+  - Also forget password function related to email
 - Solution for Session Cookie not timeout after close browser
 - Book search box with seletive search method(passing two parameters)
 
@@ -25,13 +35,16 @@ These instructions will get you a copy of the project up and running on your loc
 ### Prerequisites
 
 What things you need to install the software and how to install them
-
 ```
 Give examples
 ```
 ##### Development Environment
-
-Windows 10 Home 64bit, Visual Studio Professional 2017, Microsoft SQL Server 2017, Google Chrome Version 76.0
+```
+Windows 10 Home 64bit
+Visual Studio Professional 2017
+Microsoft SQL Server 2017
+Google Chrome Version 76.0
+```
 
 ##### Environment Setup
 
@@ -44,9 +57,7 @@ Use EntityFramework Code First method to create Database tables through exsiting
 Add migrations to Database
 ```
 Enable-Migrations
-
 Add-Migration 0001
-
 Update-Database -Verbose
 ```
 
