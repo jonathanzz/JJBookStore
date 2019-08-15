@@ -26,7 +26,7 @@ For book: Create, Edit, Show details, Add to shopping cart, Delete
 - ImgURL for book display, and set default img if does not upload one
 - Pop up window for delete
 - Dynamically calculate price without refreshing page(AJAX)
-- Shopping Cart page management improve
+- Shopping Cart page management improve, price should be single price * amount
 
 #### 16/8 Fri
 
