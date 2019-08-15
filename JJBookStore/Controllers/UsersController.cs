@@ -38,7 +38,7 @@ namespace JJBookStore.Controllers
                 {
                     if (user.IsValid)
                     {
-                        FormsAuthentication.SetAuthCookie(user.UserName,s.RememberMe);
+                        FormsAuthentication.SetAuthCookie(user.UserName, false);
                         Session["UserID"] = user.UserID;
                         return RedirectToAction("Index", "Home");
                     }
@@ -88,6 +88,7 @@ namespace JJBookStore.Controllers
                 if (user != null)
                 {
                     ModelState.AddModelError("", "Username or Email address has been registered, please sign in or change another");
+                    return View();
                 }
                 var newUser = new User
                 {

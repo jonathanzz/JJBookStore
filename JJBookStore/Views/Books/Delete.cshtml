@@ -45,27 +45,27 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.price)
+            @Html.DisplayNameFor(model => model.Price)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.price)
+            @Html.DisplayFor(model => model.Price)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.img)
+            @Html.DisplayNameFor(model => model.Img)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.img)
+            @Html.DisplayFor(model => model.Img)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.uploadDate)
+            @Html.DisplayNameFor(model => model.UploadDate)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.uploadDate)
+            @Html.DisplayFor(model => model.UploadDate)
         </dd>
 
         <dt>
@@ -78,12 +78,13 @@
 
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
             <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            @Html.ActionLink("Back to Sell Book", "SellingBook", "Books")
         </div>
     }
 </div>

@@ -9,6 +9,8 @@ using System.Web;
 using System.Web.Mvc;
 using JJBookStore.DAL;
 using JJBookStore.Models;
+using System.Linq.Dynamic;
+using JJBookStore.ViewModels;
 
 namespace JJBookStore.Controllers
 {
@@ -16,10 +18,11 @@ namespace JJBookStore.Controllers
     {
         private BookStoreContext db = new BookStoreContext();
 
-        // GET: Books
-        public async Task<ActionResult> Index(string searchString)
+        // GET: Books/Search
+        public async Task<ActionResult> Search(string searchString, string columnString)
         {
-            var books = from b in db.Books where b.Title.Contains(searchString) select b;
+            //Dynamic Linq to query different column dynamically
+            var books = db.Books.Where(columnString + ".Contains" + "(\"" + searchString + "\")");
             return View(await books.ToListAsync());
         }
 
@@ -38,10 +41,21 @@ namespace JJBookStore.Controllers
             return View(book);
         }
 
+        // GET: Books/
+        public async Task<ActionResult> SellingBook()
+        {
+            if (Session["UserID"] == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            int sellserID = Convert.ToInt32(Session["UserID"]);
+            var books = from b in db.Books where b.UserID == sellserID select b;
+            return View(await books.ToListAsync());
+        }
+
         // GET: Books/Create
         public ActionResult Create()
         {
-            ViewBag.UserID = new SelectList(db.Users, "UserID", "UserName");
             return View();
         }
 
@@ -50,17 +64,32 @@ namespace JJBookStore.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "BookID,Title,UserID,Amount,Author,price,img,uploadDate,OnSell")] Book book)
+        public async Task<ActionResult> Create(CreateBookViewModel c)
         {
             if (ModelState.IsValid)
             {
+                if (Session["UserID"] == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                int id = Convert.ToInt32(Session["UserID"]);
+                var book = new Book
+                {
+                    UserID = id,
+                    Title = c.Title,
+                    Author = c.Author,
+                    Description = c.Description,
+                    Amount = c.Amount,
+                    Img = c.Img,
+                    Price = c.Price,
+                    UploadDate = c.UploadDate,
+                    OnSell = c.OnSell
+                };
                 db.Books.Add(book);
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("SellingBook");
             }
-
-            ViewBag.UserID = new SelectList(db.Users, "UserID", "UserName", book.UserID);
-            return View(book);
+            return View();
         }
 
         // GET: Books/Edit/5
@@ -75,8 +104,19 @@ namespace JJBookStore.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.UserID = new SelectList(db.Users, "UserID", "UserName", book.UserID);
-            return View(book);
+            var e = new EditBookViewModel
+            {
+                BookID = book.BookID,
+                Title = book.Title,
+                Author = book.Author,
+                Description = book.Description,
+                Amount = book.Amount,
+                Price = book.Price,
+                Img = book.Img,
+                UploadDate = book.UploadDate,
+                OnSell = book.OnSell
+            };
+            return View(e);
         }
 
         // POST: Books/Edit/5
@@ -84,16 +124,26 @@ namespace JJBookStore.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "BookID,Title,UserID,Amount,Author,price,img,uploadDate,OnSell")] Book book)
+        public async Task<ActionResult> Edit(EditBookViewModel e)
         {
             if (ModelState.IsValid)
             {
+                Book book = await db.Books.FindAsync(e.BookID);
+                if (book == null)
+                    return HttpNotFound();
+                book.Title = e.Title;
+                book.Author = e.Author;
+                book.Description = e.Description;
+                book.Amount = e.Amount;
+                book.Price = e.Price;
+                book.Img = e.Img;
+                book.UploadDate = e.UploadDate;
+                book.OnSell = e.OnSell;
                 db.Entry(book).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewBag.UserID = new SelectList(db.Users, "UserID", "UserName", book.UserID);
-            return View(book);
+            return View(e);
         }
 
         // GET: Books/Delete/5
@@ -119,7 +169,7 @@ namespace JJBookStore.Controllers
             Book book = await db.Books.FindAsync(id);
             db.Books.Remove(book);
             await db.SaveChangesAsync();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Home");
         }
 
         protected override void Dispose(bool disposing)

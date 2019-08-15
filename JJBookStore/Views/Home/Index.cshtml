@@ -10,10 +10,36 @@
 
 <br>
 <br>
+
+
+@{
+    List<SelectListItem> listItems = new List<SelectListItem>();
+    listItems.Add(new SelectListItem
+    {
+        Text = "Title",
+        Value = "Title",
+        Selected = true
+    });
+    listItems.Add(new SelectListItem
+    {
+        Text = "Author",
+        Value = "Author"
+    });
+    listItems.Add(new SelectListItem
+    {
+        Text = "Description",
+        Value = "Description"
+    });
+}
+
 @using (Html.BeginForm("Search", "Books", FormMethod.Get, new { @class = "form-horizontal", role = "form" }))
 {
     <p>
-        Title: @Html.TextBox("SearchString")
+        <h1>Search Book Here</h1>
+
+
+        @Html.DropDownList("columnString", listItems)
+        @Html.TextBox("searchString")
         <input type="submit" value="Search" />
     </p>
 }

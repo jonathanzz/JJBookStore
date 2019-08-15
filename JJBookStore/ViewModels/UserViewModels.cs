@@ -14,9 +14,8 @@ namespace JJBookStore.ViewModels
         [Required(ErrorMessage = "Password can not be empty")]
         [DataType(DataType.Password)]
         [Display(Name = "Password: ")]
+        [StringLength(50,MinimumLength = 6, ErrorMessage = "Password should be least 6 characters.")]
         public string Password { get; set; }
-        [Display(Name = "Remember me?")]
-        public bool RememberMe { get; set; }
     }
 
     public class RegisterViewModel
@@ -27,6 +26,7 @@ namespace JJBookStore.ViewModels
         [Required(ErrorMessage = "Password can not be empty")]
         [Display(Name = "Password: ")]
         [DataType(DataType.Password)]
+        [StringLength(50, MinimumLength = 6, ErrorMessage = "Password should be least 6 characters.")]
         public string Password { get; set; }
 
         [Display(Name = "Confirm Password: ")]
@@ -74,6 +74,7 @@ namespace JJBookStore.ViewModels
         [Required(ErrorMessage = "New Password can not be empty")]
         [Display(Name = "New password: ")]
         [DataType(DataType.Password)]
+        [StringLength(50, MinimumLength = 6, ErrorMessage = "Password should be least 6 characters.")]
         public string Password { get; set; }
         [Display(Name = "Confirm new password: ")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]

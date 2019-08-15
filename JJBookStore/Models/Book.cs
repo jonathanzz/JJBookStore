@@ -12,17 +12,18 @@ namespace JJBookStore.Models
         [Key]
         public int BookID { get; set; }
         [Required]
-        [StringLength(100, ErrorMessage = "Author Name cannot be longer than 100 characters.")]
+        [StringLength(100)]
         public string Title { get; set; }
         public int? UserID { get; set; }
         [ForeignKey("UserID")]
         public virtual User User { get; set; }
         public int Amount { get; set; }
-        [StringLength(50, ErrorMessage = "Author Name cannot be longer than 50 characters.")]
+        [StringLength(50)]
         public string Author { get; set; }
-        public double price { get; set; }
-        public string img { get; set; }
-        public DateTime? uploadDate { get; set; }
+        public string Description { get; set; }
+        public double Price { get; set; }
+        public string Img { get; set; }
+        public DateTime? UploadDate { get; set; }
         public bool OnSell { get; set; }
     }
 }
