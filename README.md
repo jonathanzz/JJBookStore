@@ -12,15 +12,15 @@ For book: Create, Edit, Show details, Add to shopping cart, Delete
 ********************************************************************************************************
 ## Things to do 
 #### 13/8
-(DONE)- Hidden URL parameters while doing GET request(ie. user detail)
+- Hidden URL parameters while doing GET request(ie. user detail)(DONE)
 - Add authorization method instead of store in Session
-(DONE)- Bug of duplicate Email or Username can be registered
+- Bug of duplicate Email or Username can be registered(DONE)
 
 #### 14/8
 - Find a Email Authentition method for user validation
   - Also forget password function related to email
 - Solution for Session Cookie not timeout after close browser
-(DONE)- Book search box with seletive search method(passing two parameters)
+- Book search box with seletive search method(passing two parameters)(DONE)
 
 #### 15/8
 
