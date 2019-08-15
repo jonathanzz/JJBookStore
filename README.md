@@ -61,6 +61,10 @@ Enable-Migrations
 Add-Migration 0001
 Update-Database -Verbose
 ```
+Install Dynamic Linq package
+```
+Install-Package System.Linq.Dynamic
+```
 
 ### Installing
 
