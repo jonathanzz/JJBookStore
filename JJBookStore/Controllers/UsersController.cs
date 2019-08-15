@@ -32,7 +32,7 @@ namespace JJBookStore.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = db.Users.FirstOrDefault(u => (u.UserName == s.SignInName || u.EmailAddress == s.SignInName) 
+                var user = db.Users.FirstOrDefault(u => (u.UserName == s.SignInName || u.EmailAddress == s.SignInName)
                                                         && u.Password == s.Password);
                 if (user != null)
                 {
@@ -90,7 +90,8 @@ namespace JJBookStore.Controllers
                     ModelState.AddModelError("", "Username or Email address has been registered, please sign in or change another");
                     return View();
                 }
-                var newUser = new User
+
+                db.Users.Add(new User
                 {
                     UserName = r.UserName,
                     Password = r.Password,
@@ -100,8 +101,7 @@ namespace JJBookStore.Controllers
                     LastName = r.LastName,
                     Address = r.Address,
                     IsValid = true   //Ready to be changed to false after validation function finished. 
-                };
-                db.Users.Add(newUser);
+                });
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index", "Home");
             }
