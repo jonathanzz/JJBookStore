@@ -23,8 +23,7 @@ For book: Create, Edit, Show details, Add to shopping cart, Delete
 - Book search box with seletive search method(passing two parameters)(DONE)
 
 #### 15/8
-
-
+- ImgURL for book display
 
 
 *******************************************************************************************************
