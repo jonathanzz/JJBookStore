@@ -29,7 +29,7 @@ For book: Create, Edit, Show details, Add to shopping cart, Delete
 - Shopping Cart page management improve, price should be unit price * amount(AKA quantity)
 
 #### 16/8 Fri
-
+- Go back link to previous page
 
 *******************************************************************************************************
 
