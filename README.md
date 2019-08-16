@@ -69,7 +69,10 @@ Install Dynamic Linq package
 ```
 Install-Package System.Linq.Dynamic
 ```
-
+Install PagedList for MVC via NuGet
+```
+Install-Package PagedList.mvc
+```
 ### Installing
 
 A step by step series of examples that tell you how to get a development env running
