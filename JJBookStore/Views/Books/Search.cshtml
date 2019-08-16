@@ -57,10 +57,7 @@
             @Html.DisplayFor(modelItem => item.UploadDate)
         </td>
         <td>
-            @Html.ActionLink("Details", "Details", new { id = item.BookID })
-        </td>
-        <td>
-            @Html.ActionLink("Add To Cart", "AddToCart", "ShopCarts",new { bookID = item.BookID }, null)
+            @Html.ActionLink("Details", "Details", new { id = item.BookID }) 
         </td>
     </tr>
 }

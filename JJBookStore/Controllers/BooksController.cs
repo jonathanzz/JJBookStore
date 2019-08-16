@@ -41,7 +41,7 @@ namespace JJBookStore.Controllers
             return View(book);
         }
 
-        // GET: SellingBook/
+        // GET: Books/
         public async Task<ActionResult> SellingBook()
         {
             if (Session["UserID"] == null)
