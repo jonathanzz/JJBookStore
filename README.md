@@ -24,7 +24,7 @@ For book: Create, Edit, Show details, Add to shopping cart, Delete
 
 #### 15/8 Thu
 - ImgURL for book display, and set default img if does not upload one
-- Pop up window for delete
+- Pop up window for delete(DONE)
 - Dynamically calculate price without refreshing page(AJAX)
 - Shopping Cart page management improve, price should be unit price * amount(AKA quantity)
 
@@ -69,7 +69,10 @@ Install Dynamic Linq package
 ```
 Install-Package System.Linq.Dynamic
 ```
-
+Install PagedList for MVC via NuGet
+```
+Install-Package PagedList.mvc
+```
 ### Installing
 
 A step by step series of examples that tell you how to get a development env running
