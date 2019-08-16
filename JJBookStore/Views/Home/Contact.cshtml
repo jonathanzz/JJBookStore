@@ -3,6 +3,7 @@
 }
 <h2>@ViewBag.Title.</h2>
 <h3>@ViewBag.Message</h3>
+<h1>@ViewBag.StatusMessage</h1>
 
 <address>
     One Microsoft Way<br />
@@ -15,3 +16,42 @@
     <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
     <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
 </address>
+
+<br />
+<p>
+    @Html.ActionLink(
+ "Delete",
+ "DeleteAction",
+ "Product",
+ new { confirm = true, other_parameter = "some_more_parameter" },
+ new { onclick = "return confirm('Do you really want to delete this product?')" })
+</p>
+<script>
+    $(function () {
+        $("#buttion1").click(function (event) {
+            event.preventDefault();
+            $('<div title="Confirm Box"></div>').dialog({
+                open: function (event, ui) {
+                    $(this).html("Yes or No question?");
+                },
+                close: function () {
+                    $(this).remove();
+                },
+                resizable: false,
+                height: 140,
+                modal: true,
+                buttons: {
+                    'Yes': function () {
+                        $(this).dialog('close');
+                        $.post('url/theValueYouWantToPass');
+
+                    },
+                    'No': function () {
+                        $(this).dialog('close');
+                        $.post('url/theOtherValueYouWantToPAss');
+                    }
+                }
+            });
+        });
+    });
+</script>

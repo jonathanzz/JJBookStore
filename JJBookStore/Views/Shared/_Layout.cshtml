@@ -8,6 +8,9 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
+    <script>
+        @Html.Raw(TempData["Msg"])
+    </script>
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -30,10 +33,11 @@
                                data-toggle="dropdown">@Html.Encode(User.Identity.Name)</a>
                             <ul class="dropdown-menu">
                                 <li>@Html.ActionLink("My Profile", "Details", "Users")</li>
+                                <li>@Html.ActionLink("My Shopping Cart", "ViewShopCart", "ShopCarts")</li>
                                 <li>@Html.ActionLink("Sell Book", "SellingBook", "Books")</li>
                                 <li>@Html.ActionLink("Change Password", "ChangePwd", "Users")</li>
                                 <li>@Html.ActionLink("Edit Profile", "Edit", "Users")</li>
-                                <li>@Html.ActionLink("Sign Out", "SignOut", "Users")</li>
+                                <li>@Html.ActionLink("Sign Out", "SignOut", "Users", null, new { onclick = "return confirm('Do you really want to log out?')" })</li>
                             </ul>
                         </li>
                     }

@@ -7,13 +7,13 @@ namespace JJBookStore.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class _0005 : IMigrationMetadata
+    public sealed partial class _0001 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(_0005));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(_0001));
         
         string IMigrationMetadata.Id
         {
-            get { return "201908150055566_0005"; }
+            get { return "201908160407026_0001"; }
         }
         
         string IMigrationMetadata.Source

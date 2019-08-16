@@ -40,6 +40,9 @@ namespace JJBookStore.Controllers
                     {
                         FormsAuthentication.SetAuthCookie(user.UserName, false);
                         Session["UserID"] = user.UserID;
+
+                        //Temp data to store welcome message as an alert window
+                        TempData["Msg"] = "alert('Welcome Back "+user.UserName+"!')";
                         return RedirectToAction("Index", "Home");
                     }
                     else
@@ -103,7 +106,8 @@ namespace JJBookStore.Controllers
                 };
                 db.Users.Add(newUser);
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index", "Home");
+                TempData["Msg"] = "alert('Congratulations! You have been registered successfully! Please sign in now.')";
+                return RedirectToAction("SignIn", "Users");
             }
 
             return View();
@@ -153,6 +157,7 @@ namespace JJBookStore.Controllers
                 user.Address = e.Address;
                 db.Entry(user).State = EntityState.Modified;
                 await db.SaveChangesAsync();
+                TempData["Msg"] = "alert('Your profile has been updated successfully!')";
                 return RedirectToAction("Details");
             }
             return View();
@@ -193,8 +198,10 @@ namespace JJBookStore.Controllers
                 user.Password = c.Password;
                 db.Entry(user).State = EntityState.Modified;
                 await db.SaveChangesAsync();
-
-                return RedirectToAction("Index", "Home");
+                FormsAuthentication.SignOut();
+                Session.Abandon();
+                TempData["Msg"] = "alert('Your password has been changed successfully! Please sign in again.')";
+                return RedirectToAction("SignIn");
             }
             return View();
         }
@@ -204,7 +211,7 @@ namespace JJBookStore.Controllers
         {
             FormsAuthentication.SignOut();
             Session.Abandon();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("SignIn");
         }
 
         protected override void Dispose(bool disposing)

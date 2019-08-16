@@ -11,19 +11,35 @@ using JJBookStore.DAL;
 using JJBookStore.Models;
 using System.Linq.Dynamic;
 using JJBookStore.ViewModels;
+using PagedList;
 
 namespace JJBookStore.Controllers
 {
     public class BooksController : Controller
     {
         private BookStoreContext db = new BookStoreContext();
+        private static int PageSize = 5; //one page contains elements
 
         // GET: Books/Search
-        public async Task<ActionResult> Search(string searchString, string columnString)
+        public  ActionResult Search(string searchString, string columnString,string currentSearch, int? page)
         {
+            ViewBag.columnString = columnString;
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentSearch;
+            }
+
+            ViewBag.currentSearch = searchString;
             //Dynamic Linq to query different column dynamically
-            var books = db.Books.Where(columnString + ".Contains" + "(\"" + searchString + "\")");
-            return View(await books.ToListAsync());
+            var books = db.Books.Where(columnString + ".Contains" + "(\"" + searchString + "\")").OrderByDescending(b => b.Title);
+            //pageable
+            ViewBag.totalResult = books.Count();
+            int pageNumber = (page ?? 1);
+            return View(books.ToPagedList(pageNumber, PageSize));
         }
 
         // GET: Books/Details/5
@@ -87,6 +103,7 @@ namespace JJBookStore.Controllers
                 };
                 db.Books.Add(book);
                 await db.SaveChangesAsync();
+                TempData["Msg"] = "alert('" + c.Title+"has been created successfully!')";
                 return RedirectToAction("SellingBook");
             }
             return View();
@@ -141,7 +158,7 @@ namespace JJBookStore.Controllers
                 book.OnSell = e.OnSell;
                 db.Entry(book).State = EntityState.Modified;
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("SellingBook");
             }
             return View(e);
         }
@@ -158,20 +175,10 @@ namespace JJBookStore.Controllers
             {
                 return HttpNotFound();
             }
-            return View(book);
-        }
-
-        // POST: Books/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(int id)
-        {
-            Book book = await db.Books.FindAsync(id);
             db.Books.Remove(book);
             await db.SaveChangesAsync();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("SellingBook");
         }
-
         protected override void Dispose(bool disposing)
         {
             if (disposing)

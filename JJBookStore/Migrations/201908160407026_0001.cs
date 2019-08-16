@@ -26,9 +26,10 @@ namespace JJBookStore.Migrations
                         UserID = c.Int(),
                         Amount = c.Int(nullable: false),
                         Author = c.String(maxLength: 50),
-                        price = c.Double(nullable: false),
-                        img = c.String(),
-                        uploadDate = c.DateTime(),
+                        Description = c.String(),
+                        Price = c.Double(nullable: false),
+                        Img = c.String(),
+                        UploadDate = c.DateTime(),
                         OnSell = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.BookID)
@@ -43,10 +44,9 @@ namespace JJBookStore.Migrations
                         UserName = c.String(nullable: false),
                         Password = c.String(nullable: false),
                         EmailAddress = c.String(nullable: false),
-                        NickName = c.String(maxLength: 20),
                         BirthDate = c.DateTime(nullable: false),
-                        FirstName = c.String(nullable: false, maxLength: 30),
-                        LastName = c.String(nullable: false, maxLength: 30),
+                        FirstName = c.String(maxLength: 30),
+                        LastName = c.String(maxLength: 30),
                         Address = c.String(),
                         IsValid = c.Boolean(nullable: false),
                     })
@@ -62,8 +62,8 @@ namespace JJBookStore.Migrations
                         Amount = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.ShopCartId)
-                .ForeignKey("dbo.Books", t => t.BookID, cascadeDelete: false)
-                .ForeignKey("dbo.Users", t => t.UserID, cascadeDelete: false)
+                .ForeignKey("dbo.Books", t => t.BookID, cascadeDelete: true)
+                .ForeignKey("dbo.Users", t => t.UserID, cascadeDelete: true)
                 .Index(t => t.BookID)
                 .Index(t => t.UserID);
             

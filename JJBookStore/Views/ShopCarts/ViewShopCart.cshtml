@@ -1,0 +1,49 @@
+﻿@model IEnumerable<JJBookStore.Models.ShopCart>
+
+@{
+    ViewBag.Title = "ViewShopCart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>ViewShopCart</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Book.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Amount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.User.UserName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Book.Price)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Book.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Amount)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.User.UserName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Book.Price)
+        </td>
+        <td>
+            @Html.ActionLink("Delete", "Delete", new { id = item.BookID }, new { onclick = "return confirm('Do you really want to delete it from shopping cart?')" })
+        </td>
+    </tr>
+    }
+
+</table>

@@ -76,6 +76,12 @@
     <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -155,30 +161,15 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BooksController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ShopCartsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="DAL\BookStoreContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201908130221254_0001.cs" />
-    <Compile Include="Migrations\201908130221254_0001.Designer.cs">
-      <DependentUpon>201908130221254_0001.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201908140025536_0002.cs" />
-    <Compile Include="Migrations\201908140025536_0002.Designer.cs">
-      <DependentUpon>201908140025536_0002.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201908140032112_0003.cs" />
-    <Compile Include="Migrations\201908140032112_0003.Designer.cs">
-      <DependentUpon>201908140032112_0003.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201908140047516_0004.cs" />
-    <Compile Include="Migrations\201908140047516_0004.Designer.cs">
-      <DependentUpon>201908140047516_0004.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201908150055566_0005.cs" />
-    <Compile Include="Migrations\201908150055566_0005.Designer.cs">
-      <DependentUpon>201908150055566_0005.cs</DependentUpon>
+    <Compile Include="Migrations\201908160407026_0001.cs" />
+    <Compile Include="Migrations\201908160407026_0001.Designer.cs">
+      <DependentUpon>201908160407026_0001.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Admin.cs" />
@@ -195,6 +186,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -232,14 +224,15 @@
     <Content Include="Views\Users\SignIn.cshtml" />
     <Content Include="Views\Users\ChangePwd.cshtml" />
     <Content Include="Views\Books\Create.cshtml" />
-    <Content Include="Views\Books\Delete.cshtml" />
     <Content Include="Views\Books\Details.cshtml" />
     <Content Include="Views\Books\Edit.cshtml" />
     <Content Include="Views\Books\Search.cshtml" />
     <Content Include="Views\Books\SellingBook.cshtml" />
+    <Content Include="Views\ShopCarts\ViewShopCart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\ShopCart\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -255,20 +248,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201908130221254_0001.resx">
-      <DependentUpon>201908130221254_0001.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201908140025536_0002.resx">
-      <DependentUpon>201908140025536_0002.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201908140032112_0003.resx">
-      <DependentUpon>201908140032112_0003.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201908140047516_0004.resx">
-      <DependentUpon>201908140047516_0004.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201908150055566_0005.resx">
-      <DependentUpon>201908150055566_0005.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201908160407026_0001.resx">
+      <DependentUpon>201908160407026_0001.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
@@ -289,7 +270,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>1648</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:1648/</IISUrl>
+          <IISUrl>http://localhost:1234/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

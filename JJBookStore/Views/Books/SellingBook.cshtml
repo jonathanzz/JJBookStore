@@ -38,34 +38,34 @@
 
     @foreach (var item in Model)
     {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Amount)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Author)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Price)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Img)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UploadDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.OnSell)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.BookID }) |
-            @Html.ActionLink("Details", "Details", new { id = item.BookID }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.BookID })
-        </td>
-    </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Amount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Author)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Img)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UploadDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OnSell)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.BookID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.BookID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.BookID },new { onclick = "return confirm('Do you really want to delete this book?')" })
+            </td>
+        </tr>
     }
 
 </table>
