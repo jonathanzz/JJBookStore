@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Edit</h2>
+<h2>Change Password</h2>
 
 
 @using (Html.BeginForm("ChangePwd", "Users", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
@@ -51,9 +51,6 @@
 }
 
 <div>
-    @Html.ActionLink("Back to Home", "Index")
+    <a href="javascript:history.back()">Go Back</a>
 </div>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}

@@ -63,9 +63,13 @@
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.BookID }) |
                 @Html.ActionLink("Details", "Details", new { id = item.BookID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.BookID },new { onclick = "return confirm('Do you really want to delete this book?')" })
+                @Html.ActionLink("Remove", "Remove", new { id = item.BookID },new { onclick = "return confirm('Do you really want to remove this book?')" })
             </td>
         </tr>
     }
 
 </table>
+
+<p>
+    <a href="javascript:history.back()">Go Back</a>
+</p>

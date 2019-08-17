@@ -17,7 +17,9 @@ namespace JJBookStore.Models
         public int UserID { get; set; }
         [ForeignKey("UserID")]
         public virtual User User { get; set; }
-        public int Amount { get; set; }
+        public int Quantity { get; set; }
+        [DataType(DataType.DateTime)]
+        public DateTime CreatedTime { get; set; }
 
     }
 }

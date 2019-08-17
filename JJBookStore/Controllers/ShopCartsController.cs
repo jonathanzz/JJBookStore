@@ -1,5 +1,6 @@
 ﻿using JJBookStore.DAL;
 using JJBookStore.Models;
+using JJBookStore.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -23,7 +24,16 @@ namespace JJBookStore.Controllers
             }
             int id = Convert.ToInt32(Session["UserID"]);
             var shopCartList = db.ShopCarts.Where(sc => sc.UserID == id);
-            return View(await shopCartList.ToListAsync());
+            var shopCartVMList = shopCartList.Select(sc => new ShopCartViewModel
+            {
+                ShopCartId = sc.ShopCartId,
+                BookID = sc.BookID,
+                Title = sc.Book.Title,
+                Seller = sc.User.UserName,
+                Quantity = sc.Quantity,
+                UnitPrice = sc.Book.Price
+            }).ToListAsync();
+            return View(await shopCartVMList);
         }
         //GET: ShopCarts/AddToShopCart/5
         public async Task<ActionResult> AddToShopCart(int id)
@@ -36,7 +46,7 @@ namespace JJBookStore.Controllers
             var shopCart = db.ShopCarts.FirstOrDefault(sc => sc.UserID == UserID && sc.BookID == id);
             if (shopCart != null)
             {
-                shopCart.Amount++;
+                shopCart.Quantity++;
                 db.Entry(shopCart).State = EntityState.Modified;
             }
             else
@@ -45,15 +55,35 @@ namespace JJBookStore.Controllers
                 {
                     UserID = UserID,
                     BookID = id,
-                    Amount = 1
+                    Quantity = 1,
+                    CreatedTime = DateTime.Now
                 });
             }
             await db.SaveChangesAsync();
             TempData["Msg"] = "alert('This book has been added to shopping cart successfully!')";
             return RedirectToAction("ViewShopCart");
         }
+        //POST: ShopCarts/SaveShopCart
+        public async Task<ActionResult> SaveShopCart(IEnumerable<ShopCartViewModel> scList)
+        {
+            if (ModelState.IsValid)
+            {
+                foreach(var sc in scList)
+                {
+                    var shopcart = await db.ShopCarts.FindAsync(sc.ShopCartId);
+                    if(shopcart==null)
+                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                    shopcart.Quantity = sc.Quantity;
+                    db.Entry(shopcart).State = EntityState.Modified;
+                }
+                await db.SaveChangesAsync();
+                return RedirectToAction("ViewShopCart");
+            }
+            return View();
+        }
 
-        public async Task<ActionResult> Delete(int? id)
+        //GET: ShopCarts/Remove/5
+        public async Task<ActionResult> Remove(int? id)
         {
             if (id == null)
             {
@@ -66,7 +96,7 @@ namespace JJBookStore.Controllers
             }
             db.ShopCarts.Remove(shopCart);
             await db.SaveChangesAsync();
-            return RedirectToAction("SellingBook");
+            return RedirectToAction("ViewShopCart");
         }
     }
 }

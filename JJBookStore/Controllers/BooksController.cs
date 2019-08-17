@@ -163,8 +163,8 @@ namespace JJBookStore.Controllers
             return View(e);
         }
 
-        // GET: Books/Delete/5
-        public async Task<ActionResult> Delete(int? id)
+        // GET: Books/Remove/5
+        public async Task<ActionResult> Remove(int? id)
         {
             if (id == null)
             {
