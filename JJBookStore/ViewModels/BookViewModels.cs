@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JJBookStore.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -26,6 +27,22 @@ namespace JJBookStore.ViewModels
         [DataType(DataType.Date)]
         public DateTime? UploadDate { get; set; }
         public bool OnSell { get; set; }
+
+        public CreateBookViewModel() { }
+
+        public static Book ConvertToBook(CreateBookViewModel c, Book book, int id)
+        {
+            book.UserID = id;
+            book.Title = c.Title;
+            book.Author = c.Author;
+            book.Description = c.Description;
+            book.Amount = c.Amount;
+            book.Img = c.Img;
+            book.Price = c.Price;
+            book.UploadDate = c.UploadDate;
+            book.OnSell = c.OnSell;
+            return book;
+        }
     }
 
     public class EditBookViewModel
@@ -47,6 +64,34 @@ namespace JJBookStore.ViewModels
         [DataType(DataType.Date)]
         public DateTime? UploadDate { get; set; }
         public bool OnSell { get; set; }
+
+        public EditBookViewModel() { }
+
+        public EditBookViewModel(Book book)
+        {
+            BookID = book.BookID;
+            Title = book.Title;
+            Author = book.Author;
+            Description = book.Description;
+            Amount = book.Amount;
+            Price = book.Price;
+            Img = book.Img;
+            UploadDate = book.UploadDate;
+            OnSell = book.OnSell;
+        }
+
+        public static Book ConvertToBook(EditBookViewModel e, Book book)
+        {
+            book.Title = e.Title;
+            book.Author = e.Author;
+            book.Description = e.Description;
+            book.Amount = e.Amount;
+            book.Price = e.Price;
+            book.Img = e.Img;
+            book.UploadDate = e.UploadDate;
+            book.OnSell = e.OnSell;
+            return book;
+        }
     }
-    
+
 }

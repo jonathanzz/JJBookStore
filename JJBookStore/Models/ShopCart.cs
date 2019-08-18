@@ -21,5 +21,6 @@ namespace JJBookStore.Models
         [DataType(DataType.DateTime)]
         public DateTime CreatedTime { get; set; }
 
+
     }
 }

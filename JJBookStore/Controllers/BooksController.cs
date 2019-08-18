@@ -89,21 +89,10 @@ namespace JJBookStore.Controllers
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
                 int id = Convert.ToInt32(Session["UserID"]);
-                var book = new Book
-                {
-                    UserID = id,
-                    Title = c.Title,
-                    Author = c.Author,
-                    Description = c.Description,
-                    Amount = c.Amount,
-                    Img = c.Img,
-                    Price = c.Price,
-                    UploadDate = c.UploadDate,
-                    OnSell = c.OnSell
-                };
-                db.Books.Add(book);
+                var book = new Book();
+                db.Books.Add(CreateBookViewModel.ConvertToBook(c,book,id));
                 await db.SaveChangesAsync();
-                TempData["Msg"] = "alert('" + c.Title+"has been created successfully!')";
+                TempData["Msg"] = "alert('Book: " + c.Title+" has been created successfully!')";
                 return RedirectToAction("SellingBook");
             }
             return View();
@@ -121,19 +110,7 @@ namespace JJBookStore.Controllers
             {
                 return HttpNotFound();
             }
-            var e = new EditBookViewModel
-            {
-                BookID = book.BookID,
-                Title = book.Title,
-                Author = book.Author,
-                Description = book.Description,
-                Amount = book.Amount,
-                Price = book.Price,
-                Img = book.Img,
-                UploadDate = book.UploadDate,
-                OnSell = book.OnSell
-            };
-            return View(e);
+            return View(new EditBookViewModel(book));
         }
 
         // POST: Books/Edit/5
@@ -148,16 +125,9 @@ namespace JJBookStore.Controllers
                 Book book = await db.Books.FindAsync(e.BookID);
                 if (book == null)
                     return HttpNotFound();
-                book.Title = e.Title;
-                book.Author = e.Author;
-                book.Description = e.Description;
-                book.Amount = e.Amount;
-                book.Price = e.Price;
-                book.Img = e.Img;
-                book.UploadDate = e.UploadDate;
-                book.OnSell = e.OnSell;
-                db.Entry(book).State = EntityState.Modified;
+                db.Entry(EditBookViewModel.ConvertToBook(e,book)).State = EntityState.Modified;
                 await db.SaveChangesAsync();
+                TempData["Msg"] = "alert('Book: " + e.Title + " has been edited successfully!')";
                 return RedirectToAction("SellingBook");
             }
             return View(e);

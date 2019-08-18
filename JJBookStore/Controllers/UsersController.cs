@@ -42,7 +42,7 @@ namespace JJBookStore.Controllers
                         Session["UserID"] = user.UserID;
 
                         //Temp data to store welcome message as an alert window
-                        TempData["Msg"] = "alert('Welcome Back "+user.UserName+"!')";
+                        TempData["Msg"] = "alert('Welcome Back "+user.UserName+" !')";
                         return RedirectToAction("Index", "Home");
                     }
                     else
@@ -93,18 +93,8 @@ namespace JJBookStore.Controllers
                     ModelState.AddModelError("", "Username or Email address has been registered, please sign in or change another");
                     return View();
                 }
-                var newUser = new User
-                {
-                    UserName = r.UserName,
-                    Password = r.Password,
-                    EmailAddress = r.EmailAddress,
-                    BirthDate = r.BirthDate,
-                    FirstName = r.FirstName,
-                    LastName = r.LastName,
-                    Address = r.Address,
-                    IsValid = true   //Ready to be changed to false after validation function finished. 
-                };
-                db.Users.Add(newUser);
+                var newUser = new User();
+                db.Users.Add(RegisterViewModel.ConvertToUser(r,newUser));
                 await db.SaveChangesAsync();
                 TempData["Msg"] = "alert('Congratulations! You have been registered successfully! Please sign in now.')";
                 return RedirectToAction("SignIn", "Users");
@@ -126,16 +116,8 @@ namespace JJBookStore.Controllers
             {
                 return HttpNotFound();
             }
-            var e = new EditUserViewModel
-            {
-                UserID = user.UserID,
-                Address = user.Address,
-                EmailAddress = user.EmailAddress,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                BirthDate = user.BirthDate
-            };
-            return View(e);
+            
+            return View(new EditUserViewModel(user));
         }
 
         // POST: Users/Edit
@@ -150,11 +132,7 @@ namespace JJBookStore.Controllers
                 User user = await db.Users.FindAsync(e.UserID);
                 if (user == null)
                     return HttpNotFound();
-                user.EmailAddress = e.EmailAddress;
-                user.BirthDate = e.BirthDate;
-                user.FirstName = e.FirstName;
-                user.LastName = e.LastName;
-                user.Address = e.Address;
+                user = EditUserViewModel.ConvertToUser(e, user);
                 db.Entry(user).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 TempData["Msg"] = "alert('Your profile has been updated successfully!')";

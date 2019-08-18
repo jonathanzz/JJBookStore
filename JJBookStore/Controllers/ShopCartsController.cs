@@ -16,7 +16,7 @@ namespace JJBookStore.Controllers
     {
         private BookStoreContext db = new BookStoreContext();
         //GET: ShopCarts/ViewShopCart
-        public async Task<ActionResult> ViewShopCart()
+        public ActionResult ViewShopCart()
         {
             if (Session["UserID"] == null)
             {
@@ -24,16 +24,12 @@ namespace JJBookStore.Controllers
             }
             int id = Convert.ToInt32(Session["UserID"]);
             var shopCartList = db.ShopCarts.Where(sc => sc.UserID == id);
-            var shopCartVMList = shopCartList.Select(sc => new ShopCartViewModel
+            var scList = new ShopCartViewModelList();
+            foreach (var sc in shopCartList)
             {
-                ShopCartId = sc.ShopCartId,
-                BookID = sc.BookID,
-                Title = sc.Book.Title,
-                Seller = sc.User.UserName,
-                Quantity = sc.Quantity,
-                UnitPrice = sc.Book.Price
-            }).ToListAsync();
-            return View(await shopCartVMList);
+                scList.scList.Add(new ShopCartViewModel(sc));
+            }
+            return View(scList);
         }
         //GET: ShopCarts/AddToShopCart/5
         public async Task<ActionResult> AddToShopCart(int id)
@@ -63,40 +59,68 @@ namespace JJBookStore.Controllers
             TempData["Msg"] = "alert('This book has been added to shopping cart successfully!')";
             return RedirectToAction("ViewShopCart");
         }
-        //POST: ShopCarts/SaveShopCart
-        public async Task<ActionResult> SaveShopCart(IEnumerable<ShopCartViewModel> scList)
+
+        public Task<ActionResult> ShopCartAction(string shopCartButton, ShopCartViewModelList scVMList)
         {
+            switch (shopCartButton)
+            {
+                case "Save Change":
+                    // delegate sending to another controller action
+                    return (SaveShopCart(scVMList));
+                case "Remove":
+                    // call another action to perform the cancellation
+                    return (RemoveShopCart(scVMList));
+                default:
+                    // If they've submitted the form without a submitButton, 
+                    // just return the view again.
+                    return null;
+            }
+        }
+        //POST: ShopCarts/SaveShopCart
+        private async Task<ActionResult> SaveShopCart(ShopCartViewModelList scVMList)
+        {
+
             if (ModelState.IsValid)
             {
-                foreach(var sc in scList)
+                foreach (var sc in scVMList.scList)
                 {
-                    var shopcart = await db.ShopCarts.FindAsync(sc.ShopCartId);
-                    if(shopcart==null)
-                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                    shopcart.Quantity = sc.Quantity;
-                    db.Entry(shopcart).State = EntityState.Modified;
+                    if (sc.check)
+                    {
+                        var shopcart = await db.ShopCarts.FindAsync(sc.ShopCartId);
+                        if (shopcart == null)
+                            return HttpNotFound();
+                        shopcart.Quantity = sc.Quantity;
+                        db.Entry(shopcart).State = EntityState.Modified;
+                    }
                 }
                 await db.SaveChangesAsync();
+                TempData["Msg"] = "alert('Item selected has been saved successfully!')";
                 return RedirectToAction("ViewShopCart");
             }
             return View();
         }
 
-        //GET: ShopCarts/Remove/5
-        public async Task<ActionResult> Remove(int? id)
+        //POST: ShopCarts/Remove/5
+        private async Task<ActionResult> RemoveShopCart(ShopCartViewModelList scVMList)
         {
-            if (id == null)
+
+            if (ModelState.IsValid)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                foreach (var sc in scVMList.scList)
+                {
+                    if (sc.check)
+                    {
+                        var shopcart = await db.ShopCarts.FindAsync(sc.ShopCartId);
+                        if (shopcart == null)
+                            return HttpNotFound();
+                        db.ShopCarts.Remove(shopcart);
+                    }
+                }
+                await db.SaveChangesAsync();
+                TempData["Msg"] = "alert('Item selected has been removed successfully!')";
+                return RedirectToAction("ViewShopCart");
             }
-            ShopCart shopCart = await db.ShopCarts.FindAsync(id);
-            if (shopCart == null)
-            {
-                return HttpNotFound();
-            }
-            db.ShopCarts.Remove(shopCart);
-            await db.SaveChangesAsync();
-            return RedirectToAction("ViewShopCart");
+            return View();
         }
     }
 }
