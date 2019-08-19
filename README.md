@@ -40,7 +40,6 @@ For book: Create, Edit, Show details, Add to shopping cart, Delete
 #### 19/8 Mon
 - Inner website message function between users.
 - Check if at least one checkbox been checked before submitting at shopping cart
-
 *******************************************************************************************************
 
 ## Getting Started
