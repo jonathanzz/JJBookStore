@@ -25,11 +25,20 @@ For book: Create, Edit, Show details, Add to shopping cart, Delete
 #### 15/8 Thu
 - ImgURL for book display, and set default img if does not upload one
 - Pop up window for delete(DONE)
-- Dynamically calculate price without refreshing page(AJAX)
-- Shopping Cart page management improve, price should be unit price * amount(AKA quantity)
+- Dynamically calculate price without refreshing page(AJAX) (DONE)
+- Shopping Cart page management improve, price should be unit price * amount(AKA quantity) (DONE)
 
 #### 16/8 Fri
 - Go back link to previous page(DONE)
+- Format model and view model constructor and convert functions,to avoid them occurs in controller(DONE)
+#### 17/8 Sat
+- Multiple submission from same form into different controllers.(DONE)
+- Confirmation dialog box before submittion a POST form. (DONE)
+#### 18/8 Sun
+- Purchase button submittion hold until new poped-up confirmation page confirmed. Or confirmation dialog before submition, while pop-up a new payment page.(DONE, but not available for Goole Chrome, becase of the dialog block policy, details: https://www.chromestatus.com/feature/5140698722467840 )
+- POST request redirect to another POST method, or to GET method with object transfer.
+#### 19/8 Mon
+- Inner website message function between users.
 
 *******************************************************************************************************
 
