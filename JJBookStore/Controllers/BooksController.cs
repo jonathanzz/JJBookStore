@@ -21,7 +21,7 @@ namespace JJBookStore.Controllers
         private static int PageSize = 5; //one page contains elements
 
         // GET: Books/Search
-        public  ActionResult Search(string searchString, string columnString,string currentSearch, int? page)
+        public ActionResult Search(string searchString, string columnString, string currentSearch, int? page)
         {
             ViewBag.columnString = columnString;
             if (searchString != null)
@@ -35,7 +35,7 @@ namespace JJBookStore.Controllers
 
             ViewBag.currentSearch = searchString;
             //Dynamic Linq to query different column dynamically
-            var books = db.Books.Where(columnString + ".Contains" + "(\"" + searchString + "\")").OrderByDescending(b => b.Title);
+            var books = db.Books.Where(columnString + ".Contains" + "(\"" + searchString + "\")").Where(b => b.OnSell == true).OrderByDescending(b => b.Title);
             //pageable
             ViewBag.totalResult = books.Count();
             int pageNumber = (page ?? 1);
@@ -57,7 +57,7 @@ namespace JJBookStore.Controllers
             return View(book);
         }
 
-        // GET: Books/
+        // GET: Books/SellingBook
         public async Task<ActionResult> SellingBook()
         {
             if (Session["UserID"] == null)
@@ -67,6 +67,18 @@ namespace JJBookStore.Controllers
             int sellserID = Convert.ToInt32(Session["UserID"]);
             var books = from b in db.Books where b.UserID == sellserID select b;
             return View(await books.ToListAsync());
+        }
+
+        //GET: Books/SaleRecord/5
+        public ActionResult SaleRecord(int? id)
+        {
+            var purchaseds = db.Purchaseds.Where(p => p.BookID == id);
+            IList<SaleRecordViewModel> saleRecordList = new List<SaleRecordViewModel>();
+            foreach(var p in purchaseds)
+            {
+                saleRecordList.Add(new SaleRecordViewModel(p));
+            }
+            return View(saleRecordList);
         }
 
         // GET: Books/Create
@@ -90,9 +102,9 @@ namespace JJBookStore.Controllers
                 }
                 int id = Convert.ToInt32(Session["UserID"]);
                 var book = new Book();
-                db.Books.Add(CreateBookViewModel.ConvertToBook(c,book,id));
+                db.Books.Add(CreateBookViewModel.ConvertToBook(c, book, id));
                 await db.SaveChangesAsync();
-                TempData["Msg"] = "alert('Book: " + c.Title+" has been created successfully!')";
+                TempData["Msg"] = "alert('Book: " + c.Title + " has been created successfully!')";
                 return RedirectToAction("SellingBook");
             }
             return View();
@@ -125,7 +137,7 @@ namespace JJBookStore.Controllers
                 Book book = await db.Books.FindAsync(e.BookID);
                 if (book == null)
                     return HttpNotFound();
-                db.Entry(EditBookViewModel.ConvertToBook(e,book)).State = EntityState.Modified;
+                db.Entry(EditBookViewModel.ConvertToBook(e, book)).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 TempData["Msg"] = "alert('Book: " + e.Title + " has been edited successfully!')";
                 return RedirectToAction("SellingBook");

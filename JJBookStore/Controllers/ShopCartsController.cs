@@ -57,23 +57,25 @@ namespace JJBookStore.Controllers
             }
             await db.SaveChangesAsync();
             TempData["Msg"] = "alert('This book has been added to shopping cart successfully!')";
-            return RedirectToAction("ViewShopCart");
+            return RedirectToAction("ViewShopCart", "ShopCarts");
         }
 
-        public Task<ActionResult> ShopCartAction(string shopCartButton, ShopCartViewModelList scVMList)
+        public async Task<ActionResult> ShopCartAction(string shopCartButton, ShopCartViewModelList scVMList)
         {
             switch (shopCartButton)
             {
                 case "Save Change":
                     // delegate sending to another controller action
-                    return (SaveShopCart(scVMList));
+                    return await (SaveShopCart(scVMList));
                 case "Remove":
                     // call another action to perform the cancellation
-                    return (RemoveShopCart(scVMList));
+                    return await (RemoveShopCart(scVMList));
+                case "Purchase Now":
+                    return await (new PurchasedsController().PurchaseNow(scVMList));
                 default:
                     // If they've submitted the form without a submitButton, 
                     // just return the view again.
-                    return null;
+                    return View();
             }
         }
         //POST: ShopCarts/SaveShopCart
@@ -122,5 +124,6 @@ namespace JJBookStore.Controllers
             }
             return View();
         }
+
     }
 }

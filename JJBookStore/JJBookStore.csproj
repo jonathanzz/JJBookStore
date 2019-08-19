@@ -161,6 +161,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BooksController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PurchasedsController.cs" />
     <Compile Include="Controllers\ShopCartsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="DAL\BookStoreContext.cs" />
@@ -179,13 +180,24 @@
     <Compile Include="Migrations\201908162232265_0003.Designer.cs">
       <DependentUpon>201908162232265_0003.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201908180358453_0004.cs" />
+    <Compile Include="Migrations\201908180358453_0004.Designer.cs">
+      <DependentUpon>201908180358453_0004.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908190227052_0005.cs" />
+    <Compile Include="Migrations\201908190227052_0005.Designer.cs">
+      <DependentUpon>201908190227052_0005.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Admin.cs" />
     <Compile Include="Models\Book.cs" />
+    <Compile Include="Models\Purchased.cs" />
     <Compile Include="Models\ShopCart.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utility\SendEmail.cs" />
     <Compile Include="ViewModels\BookViewModels.cs" />
+    <Compile Include="ViewModels\SaleRecordViewModel.cs" />
     <Compile Include="ViewModels\ShopCartViewModels.cs" />
     <Compile Include="ViewModels\UserViewModels.cs" />
   </ItemGroup>
@@ -238,6 +250,10 @@
     <Content Include="Views\Books\Search.cshtml" />
     <Content Include="Views\Books\SellingBook.cshtml" />
     <Content Include="Views\ShopCarts\ViewShopCart.cshtml" />
+    <Content Include="Views\Purchaseds\PurchaseIndex.cshtml" />
+    <Content Include="Views\Purchaseds\PaymentConfirm.cshtml" />
+    <Content Include="Views\Purchaseds\PurchaseCancel.cshtml" />
+    <Content Include="Views\Books\SaleRecord.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -264,6 +280,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201908162232265_0003.resx">
       <DependentUpon>201908162232265_0003.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908180358453_0004.resx">
+      <DependentUpon>201908180358453_0004.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908190227052_0005.resx">
+      <DependentUpon>201908190227052_0005.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

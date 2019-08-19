@@ -6,6 +6,7 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/Scripts/jquery-3.3.1.min.js")
 </head>
 <body>
     <script>
@@ -35,6 +36,7 @@
                                 <li>@Html.ActionLink("My Profile", "Details", "Users")</li>
                                 <li>@Html.ActionLink("My Shopping Cart", "ViewShopCart", "ShopCarts")</li>
                                 <li>@Html.ActionLink("Sell Book", "SellingBook", "Books")</li>
+                                <li>@Html.ActionLink("My Purchased", "PurchaseIndex", "Purchaseds")</li>
                                 <li>@Html.ActionLink("Change Password", "ChangePwd", "Users")</li>
                                 <li>@Html.ActionLink("Edit Profile", "Edit", "Users")</li>
                                 <li>@Html.ActionLink("Sign Out", "SignOut", "Users", null, new { onclick = "return confirm('Do you really want to log out?')" })</li>

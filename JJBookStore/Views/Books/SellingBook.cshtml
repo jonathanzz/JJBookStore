@@ -16,7 +16,7 @@
             @Html.DisplayNameFor(model => model.Title)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Amount)
+            @Html.DisplayNameFor(model => model.StockQty)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Author)
@@ -43,7 +43,7 @@
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Amount)
+                @Html.DisplayFor(modelItem => item.StockQty)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Author)
@@ -63,7 +63,8 @@
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.BookID }) |
                 @Html.ActionLink("Details", "Details", new { id = item.BookID }) |
-                @Html.ActionLink("Remove", "Remove", new { id = item.BookID },new { onclick = "return confirm('Do you really want to remove this book?')" })
+                @Html.ActionLink("Sale Record", "SaleRecord", new { id = item.BookID }) |
+                @Html.ActionLink("Remove", "Remove", new { id = item.BookID }, new { onclick = "return confirm('Do you really want to remove this book?')" })
             </td>
         </tr>
     }

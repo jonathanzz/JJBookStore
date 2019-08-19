@@ -14,8 +14,9 @@ namespace JJBookStore.ViewModels
         [Required(ErrorMessage = "Book title can not be empty")]
         [StringLength(100, ErrorMessage = "Title cannot be longer than 50 characters.")]
         public string Title { get; set; }
-        [Required(ErrorMessage = "Amount can not be empty")]
-        public int Amount { get; set; }
+        [Required(ErrorMessage = "Stock Quantity can not be empty")]
+        [Display(Name = "Stock Quantity")]
+        public int StockQty { get; set; }
         [StringLength(50, ErrorMessage = "Author Name cannot be longer than 50 characters.")]
         public string Author { get; set; }
         [DataType(DataType.MultilineText)]
@@ -36,7 +37,7 @@ namespace JJBookStore.ViewModels
             book.Title = c.Title;
             book.Author = c.Author;
             book.Description = c.Description;
-            book.Amount = c.Amount;
+            book.StockQty = c.StockQty;
             book.Img = c.Img;
             book.Price = c.Price;
             book.UploadDate = c.UploadDate;
@@ -51,8 +52,9 @@ namespace JJBookStore.ViewModels
         [Required(ErrorMessage = "Book title can not be empty")]
         [StringLength(100, ErrorMessage = "Title cannot be longer than 50 characters.")]
         public string Title { get; set; }
-        [Required(ErrorMessage = "Amount can not be empty")]
-        public int Amount { get; set; }
+        [Required(ErrorMessage = "Stock Quantity can not be empty")]
+        [Display(Name = "Stock Quantity")]
+        public int StockQty { get; set; }
         [StringLength(50, ErrorMessage = "Author Name cannot be longer than 50 characters.")]
         public string Author { get; set; }
         [DataType(DataType.MultilineText)]
@@ -73,7 +75,7 @@ namespace JJBookStore.ViewModels
             Title = book.Title;
             Author = book.Author;
             Description = book.Description;
-            Amount = book.Amount;
+            StockQty = book.StockQty;
             Price = book.Price;
             Img = book.Img;
             UploadDate = book.UploadDate;
@@ -85,7 +87,7 @@ namespace JJBookStore.ViewModels
             book.Title = e.Title;
             book.Author = e.Author;
             book.Description = e.Description;
-            book.Amount = e.Amount;
+            book.StockQty = e.StockQty;
             book.Price = e.Price;
             book.Img = e.Img;
             book.UploadDate = e.UploadDate;

@@ -1,0 +1,50 @@
+﻿@model IEnumerable<JJBookStore.Models.Purchased>
+
+@{
+    ViewBag.Title = "PurchaseIndex";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>PurchaseIndex</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Quantity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PurchasedPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PurchasedTime)
+        </th>
+        <th>
+            Sub Total
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Quantity)
+        </td>
+        <td>
+           $@Html.DisplayFor(modelItem => item.PurchasedPrice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PurchasedTime)
+        </td>
+        <td>
+            $<span>@(item.PurchasedPrice*item.Quantity)</span>
+        </td>
+    </tr>
+}
+
+</table>

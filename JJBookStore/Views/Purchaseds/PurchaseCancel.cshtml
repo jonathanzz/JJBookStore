@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewBag.Title = "PurchaseCancel";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script>
+
+    setTimeout(function () { window.location.href ="\ShopCarts\ViewShopCart" }, 10000);
+</script>
+<h2>PaymentConfirm</h2>
+<br /><br /><br /><br /><br /><br />
+<center>
+    <p>
+        <h2>The stock quanity of the item @ViewBag.Title is not enough now, please wait the seller @ViewBag.Seller to update the stock, or contact seller directlly by @ViewBag.Email .</h2>
+    </p>
+    <p>
+        <h4>This page will redirect to shopping cart page automatically in 10 seconds, or click @Html.ActionLink("here", "ViewShopCart", "ShopCarts") to redirect now.</h4>
+    </p>
+
+</center>
+<br /><br /><br /><br /><br /><br />

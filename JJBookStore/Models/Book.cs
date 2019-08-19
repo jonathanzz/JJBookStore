@@ -17,7 +17,8 @@ namespace JJBookStore.Models
         public int? UserID { get; set; }
         [ForeignKey("UserID")]
         public virtual User User { get; set; }
-        public int Amount { get; set; }
+        [Display(Name = "Stock Quantity")]
+        public int StockQty { get; set; }
         [StringLength(50)]
         public string Author { get; set; }
         public string Description { get; set; }

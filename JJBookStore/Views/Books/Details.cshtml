@@ -49,11 +49,11 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Amount)
+            @Html.DisplayNameFor(model => model.StockQty)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Amount)
+            @Html.DisplayFor(model => model.StockQty)
         </dd>
 
         <dt>
@@ -80,6 +80,11 @@
             @Html.DisplayFor(model => model.OnSell)
         </dd>
 
+    </dl>
+    <dl>
+        <dd>
+            @Html.ActionLink("Add To Cart", "AddToShopCart", "ShopCarts", new { id = Model.BookID }, null)
+        </dd>
     </dl>
 </div>
 <p>

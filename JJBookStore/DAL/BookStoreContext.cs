@@ -18,6 +18,7 @@ namespace JJBookStore.DAL
 
         public DbSet<Book> Books { get; set; }
         public DbSet<ShopCart> ShopCarts { get; set; }
+        public DbSet<Purchased> Purchaseds { get; set; }
         public DbSet<Admin> Admins { get; set; }
     }
 }
