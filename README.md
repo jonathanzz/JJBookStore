@@ -35,10 +35,11 @@ For book: Create, Edit, Show details, Add to shopping cart, Delete
 - Multiple submission from same form into different controllers.(DONE)
 - Confirmation dialog box before submittion a POST form. (DONE)
 #### 18/8 Sun
-- Purchase button submittion hold until new poped-up confirmation page confirmed. Or confirmation dialog before submition, while pop-up a new payment page.(DONE, but not available for Goole Chrome, becase of the dialog block policy, details: https://www.chromestatus.com/feature/5140698722467840 )
+- Purchase button submitting hold until new poped-up confirmation page confirmed. Or confirmation dialog before submitting, while pop-up a new payment page.(DONE, but not available for Goole Chrome, becase of the dialog block policy, details: https://www.chromestatus.com/feature/5140698722467840 )
 - POST request redirect to another POST method, or to GET method with object transfer.
 #### 19/8 Mon
 - Inner website message function between users.
+- Check if at least one checkbox been checked before submitting at shopping cart
 
 *******************************************************************************************************
 
