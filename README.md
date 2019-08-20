@@ -13,13 +13,13 @@ For book: Create, Edit, Show details, Add to shopping cart, Delete
 ## Things to do 
 #### 13/8 Tue
 - Hidden URL parameters while doing GET request(ie. user detail)(DONE)
-- Add authorization method instead of store in Session
+- Add authorization method instead of store in Session(DONE, by using FormsAuthenticationTicket Class to store userdata into cookie)
 - Bug of duplicate Email or Username can be registered(DONE)
 
 #### 14/8 Wed
 - Find a Email Authentition method for user validation(DONE)
   - Also forget password function related to email
-- Solution for Session Cookie not timeout after close browser
+- Solution for Session Cookie not timeout after close browser(DONE, by using FormsAuthenticationTicket to avoid using session)
 - Book search box with seletive search method(passing two parameters)(DONE)
 
 #### 15/8 Thu
