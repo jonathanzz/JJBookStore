@@ -17,7 +17,7 @@ For book: Create, Edit, Show details, Add to shopping cart, Delete
 - Bug of duplicate Email or Username can be registered(DONE)
 
 #### 14/8 Wed
-- Find a Email Authentition method for user validation
+- Find a Email Authentition method for user validation(DONE)
   - Also forget password function related to email
 - Solution for Session Cookie not timeout after close browser
 - Book search box with seletive search method(passing two parameters)(DONE)
@@ -38,9 +38,11 @@ For book: Create, Edit, Show details, Add to shopping cart, Delete
 - Purchase button submitting hold until new poped-up confirmation page confirmed. Or confirmation dialog before submitting, while pop-up a new payment page.(DONE, but not available for Goole Chrome, becase of the dialog block policy, details: https://www.chromestatus.com/feature/5140698722467840 )
 - POST request redirect to another POST method, or to GET method with object transfer.
 #### 19/8 Mon
+- User Telerik UI to build an Administration Database Management site.(DONE)
 - Inner website message function between users.
 - Check if at least one checkbox been checked before submitting at shopping cart
 *******************************************************************************************************
+
 
 ## Getting Started
 
