@@ -39,8 +39,11 @@ namespace JJBookStore.Controllers
                     if (user.IsValid)
                     {
                         FormsAuthentication.SetAuthCookie(user.UserName, false);
-                        Session["UserID"] = user.UserID;
-
+                        FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(2, user.UserName, DateTime.Now,
+                        DateTime.Now.AddMinutes(30), false, user.UserID.ToString(), FormsAuthentication.FormsCookiePath);
+                        string encTicket = FormsAuthentication.Encrypt(ticket);
+                        // Create the cookie.
+                        Response.Cookies.Add(new HttpCookie(FormsAuthentication.FormsCookieName, encTicket));
                         //Temp data to store welcome message as an alert window
                         TempData["Msg"] = "alert('Welcome Back "+user.UserName+" !')";
                         return RedirectToAction("Index", "Home");
@@ -55,15 +58,14 @@ namespace JJBookStore.Controllers
             }
             return View();
         }
+
         // GET: Users/Details
         //Directly get user ID from session, to avoid id shows on URL
+        [Authorize]
         public async Task<ActionResult> Details()
         {
-            if (Session["UserID"] == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            int id = Convert.ToInt32(Session["UserID"]);
+            FormsIdentity userIDIdentity = (FormsIdentity)User.Identity;
+            int id = Convert.ToInt32(userIDIdentity.Ticket.UserData);
             User user = await db.Users.FindAsync(id);
             if (user == null)
             {
@@ -104,13 +106,11 @@ namespace JJBookStore.Controllers
         }
 
         // GET: Users/Edit
+        [Authorize]
         public async Task<ActionResult> Edit()
         {
-            if (Session["UserID"] == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            int id = Convert.ToInt32(Session["UserID"]);
+            FormsIdentity userIDIdentity = (FormsIdentity)User.Identity;
+            int id = Convert.ToInt32(userIDIdentity.Ticket.UserData);
             User user = await db.Users.FindAsync(id);
             if (user == null)
             {
@@ -142,13 +142,11 @@ namespace JJBookStore.Controllers
         }
 
         // GET: Users/ChangPwd
+        [Authorize]
         public async Task<ActionResult> ChangePwd()
         {
-            if (Session["UserID"] == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            int id = Convert.ToInt32(Session["UserID"]);
+            FormsIdentity userIDIdentity = (FormsIdentity)User.Identity;
+            int id = Convert.ToInt32(userIDIdentity.Ticket.UserData);
             User user = await db.Users.FindAsync(id);
             if (user == null)
             {
@@ -177,7 +175,6 @@ namespace JJBookStore.Controllers
                 db.Entry(user).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 FormsAuthentication.SignOut();
-                Session.Abandon();
                 TempData["Msg"] = "alert('Your password has been changed successfully! Please sign in again.')";
                 return RedirectToAction("SignIn");
             }
@@ -188,7 +185,6 @@ namespace JJBookStore.Controllers
         public ActionResult SignOut()
         {
             FormsAuthentication.SignOut();
-            Session.Abandon();
             return RedirectToAction("SignIn");
         }
 

@@ -1,0 +1,30 @@
+﻿
+@(Html.Kendo().Grid<JJBookStoreAdmin.Book>()
+      .Name("grid")
+      .Columns(columns =>
+      {
+        columns.Bound(c => c.Title);
+        columns.Bound(c => c.Author);
+        columns.Bound(c => c.Description);
+        columns.Bound(c => c.Price);
+        columns.Bound(c => c.Img);
+        columns.Bound(c => c.UploadDate);
+        columns.Bound(c => c.OnSell);
+        columns.Bound(c => c.StockQty);
+        columns.Command(command => { command.Edit(); command.Destroy(); }).Width(180);
+      })
+      .ToolBar(toolbar => {
+            toolbar.Create();
+      })
+      .ColumnMenu()
+      .Editable(editable => editable.Mode(GridEditMode.PopUp))
+      .Filterable()
+      .DataSource(dataSource => dataSource
+          .Ajax()
+          .Model(model => model.Id(p => p.BookID))
+          .Read(read => read.Action("Books_Read", "Books"))
+          .Create(create => create.Action("Books_Create", "Books"))
+          .Update(update => update.Action("Books_Update", "Books"))
+          .Destroy(destroy => destroy.Action("Books_Destroy", "Books"))
+      )
+)

@@ -9,6 +9,7 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace JJBookStore.Controllers
 {
@@ -16,13 +17,11 @@ namespace JJBookStore.Controllers
     {
         private BookStoreContext db = new BookStoreContext();
         //GET: ShopCarts/ViewShopCart
+        [Authorize]
         public ActionResult ViewShopCart()
         {
-            if (Session["UserID"] == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            int id = Convert.ToInt32(Session["UserID"]);
+            FormsIdentity userIDIdentity = (FormsIdentity)User.Identity;
+            int id = Convert.ToInt32(userIDIdentity.Ticket.UserData);
             var shopCartList = db.ShopCarts.Where(sc => sc.UserID == id);
             var scList = new ShopCartViewModelList();
             foreach (var sc in shopCartList)
@@ -34,11 +33,14 @@ namespace JJBookStore.Controllers
         //GET: ShopCarts/AddToShopCart/5
         public async Task<ActionResult> AddToShopCart(int id)
         {
-            if (Session["UserID"] == null)
+            FormsIdentity userIDIdentity = (FormsIdentity)User.Identity;
+            
+            if (userIDIdentity == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                TempData["Msg"] = "alert('Only registered user can add item to shopping cart, please sign in or register!')";
+                return RedirectToAction("SignIn","Users");
             }
-            int UserID = Convert.ToInt32(Session["UserID"]);
+            int UserID = Convert.ToInt32(userIDIdentity.Ticket.UserData);
             var shopCart = db.ShopCarts.FirstOrDefault(sc => sc.UserID == UserID && sc.BookID == id);
             if (shopCart != null)
             {

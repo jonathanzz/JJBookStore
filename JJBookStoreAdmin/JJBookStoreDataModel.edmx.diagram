@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="e0a8bf03bc23443b9f1c3ffd13c0d9ae" Name="Diagram1" ZoomLevel="64">
+        <EntityTypeShape EntityType="JJBookStoreModel.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="JJBookStoreModel.Admin" Width="1.5" PointX="2.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="JJBookStoreModel.Book" Width="1.5" PointX="3" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="JJBookStoreModel.Purchased" Width="1.5" PointX="5.25" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="JJBookStoreModel.ShopCart" Width="1.5" PointX="8.25" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="JJBookStoreModel.User" Width="1.5" PointX="0.75" PointY="2.375" IsExpanded="true" />
+        <AssociationConnector Association="JJBookStoreModel.FK_dbo_Books_dbo_Users_UserID" ManuallyRouted="false" />
+        <AssociationConnector Association="JJBookStoreModel.FK_dbo_Purchaseds_dbo_Books_BookID" ManuallyRouted="false" />
+        <AssociationConnector Association="JJBookStoreModel.FK_dbo_ShopCarts_dbo_Books_BookID" ManuallyRouted="false" />
+        <AssociationConnector Association="JJBookStoreModel.FK_dbo_Purchaseds_dbo_Users_UserID" ManuallyRouted="false" />
+        <AssociationConnector Association="JJBookStoreModel.FK_dbo_ShopCarts_dbo_Users_UserID" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

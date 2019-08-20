@@ -1,4 +1,5 @@
-﻿function qclick(flag, i, unit) {
+﻿/// <reference path="../jquery-3.3.1.min.js" />
+function qclick(flag, i, unit) {
     currentTotal = parseFloat(document.getElementById("tt").innerHTML);
     if (flag) {
         document.getElementById(i).value++;
@@ -49,9 +50,8 @@ function selall() {
     }
 }
 
-function test() {
+function paymentconfirm() {
     window.open('http://localhost:1234/Purchaseds/PaymentConfirm');
-
     //confirm not working at Google Chrome, because of https://www.chromestatus.com/feature/5140698722467840
     return confirm('Have you finised your payment successfully?');
 }

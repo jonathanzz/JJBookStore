@@ -9,9 +9,11 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace JJBookStore.Controllers
 {
+    [Authorize]
     public class PurchasedsController : Controller
     {
 
@@ -19,11 +21,8 @@ namespace JJBookStore.Controllers
         // GET: Purchased
         public async Task<ActionResult> PurchaseIndex()
         {
-            if (Session["UserID"] == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            int id = Convert.ToInt32(Session["UserID"]);
+            FormsIdentity userIDIdentity = (FormsIdentity)User.Identity;
+            int id = Convert.ToInt32(userIDIdentity.Ticket.UserData);
             var purchaseds = from p in db.Purchaseds where p.UserID == id select p;
             return View(await purchaseds.ToListAsync());
         }

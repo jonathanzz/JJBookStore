@@ -1,0 +1,28 @@
+﻿
+@(Html.Kendo().Grid<JJBookStoreAdmin.ShopCart>()
+      .Name("grid")
+      .Columns(columns =>
+      {
+        columns.Bound(c => c.Quantity);
+        columns.Bound(c => c.CreatedTime);
+        columns.Command(command => { command.Edit(); command.Destroy(); }).Width(180);
+      })
+      .ToolBar(toolbar => {
+            toolbar.Create();
+      })
+      .ColumnMenu()
+      .Editable(editable => editable.Mode(GridEditMode.PopUp))
+      .Sortable(sortable => {
+          sortable.SortMode(GridSortMode.SingleColumn);
+      })
+      .Filterable()
+      .Scrollable()
+      .DataSource(dataSource => dataSource
+          .Ajax()
+          .Model(model => model.Id(p => p.ShopCartId))
+          .Read(read => read.Action("ShopCarts_Read", "ShopCarts"))
+          .Create(create => create.Action("ShopCarts_Create", "ShopCarts"))
+          .Update(update => update.Action("ShopCarts_Update", "ShopCarts"))
+          .Destroy(destroy => destroy.Action("ShopCarts_Destroy", "ShopCarts"))
+      )
+)

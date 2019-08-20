@@ -12,6 +12,7 @@ using JJBookStore.Models;
 using System.Linq.Dynamic;
 using JJBookStore.ViewModels;
 using PagedList;
+using System.Web.Security;
 
 namespace JJBookStore.Controllers
 {
@@ -58,14 +59,12 @@ namespace JJBookStore.Controllers
         }
 
         // GET: Books/SellingBook
+        [Authorize]
         public async Task<ActionResult> SellingBook()
         {
-            if (Session["UserID"] == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            int sellserID = Convert.ToInt32(Session["UserID"]);
-            var books = from b in db.Books where b.UserID == sellserID select b;
+            FormsIdentity userIDIdentity = (FormsIdentity)User.Identity;
+            int id = Convert.ToInt32(userIDIdentity.Ticket.UserData);
+            var books = from b in db.Books where b.UserID == id select b;
             return View(await books.ToListAsync());
         }
 
@@ -92,15 +91,13 @@ namespace JJBookStore.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<ActionResult> Create(CreateBookViewModel c)
         {
             if (ModelState.IsValid)
             {
-                if (Session["UserID"] == null)
-                {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                }
-                int id = Convert.ToInt32(Session["UserID"]);
+                FormsIdentity userIDIdentity = (FormsIdentity)User.Identity;
+                int id = Convert.ToInt32(userIDIdentity.Ticket.UserData);
                 var book = new Book();
                 db.Books.Add(CreateBookViewModel.ConvertToBook(c, book, id));
                 await db.SaveChangesAsync();
