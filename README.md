@@ -4,7 +4,7 @@ Fully-functional book store, ASP.NET MVC web app.
 This is my first ASP.NET MVC web application. Users can search book and add to shopping cart to purchase it. Payment function module has not finished yet. In this book store, every user can be buyers and sellers. 
 
 ### Function detail
-For user: Register, Sign in, Sign out, Show profile, Edit profile, Change password, Forget password, Manage Shopping cart
+For user: Register, Sign in, Sign out, Show profile, Edit profile, Change password, Forget password, Manage Shopping cart, Purchase Book
 
 For book: Create, Edit, Show details, Add to shopping cart, Delete
 
