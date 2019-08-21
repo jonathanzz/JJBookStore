@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -18,13 +18,29 @@ namespace JJBookStoreAdmin.Controllers
 
         public ActionResult Index()
         {
+            PopulateUsers();
+            PopulateBooks();
             return View();
         }
-
+        private void PopulateUsers()
+        {
+            var users = db.Users.ToList();
+            ViewData["users"] = users;
+            ViewData["defaultUser"] = users.First();
+        }
+        private void PopulateBooks()
+        {
+            var books = db.Books.ToList();
+            ViewData["books"] = books;
+            ViewData["defaultUser"] = books.First();
+        }
         public ActionResult ShopCarts_Read([DataSourceRequest]DataSourceRequest request)
         {
             IQueryable<ShopCart> shopcarts = db.ShopCarts;
-            DataSourceResult result = shopcarts.ToDataSourceResult(request, shopCart => new {
+            DataSourceResult result = shopcarts.ToDataSourceResult(request, shopCart => new
+            {
+                BookID = shopCart.BookID,
+                UserID = shopCart.UserID,
                 ShopCartId = shopCart.ShopCartId,
                 Quantity = shopCart.Quantity,
                 CreatedTime = shopCart.CreatedTime,
@@ -40,8 +56,10 @@ namespace JJBookStoreAdmin.Controllers
             {
                 var entity = new ShopCart
                 {
+                    BookID = shopCart.BookID,
+                    UserID = shopCart.UserID,
                     Quantity = shopCart.Quantity,
-                    CreatedTime = shopCart.CreatedTime,
+                    CreatedTime = shopCart.CreatedTime
                 };
 
                 db.ShopCarts.Add(entity);
@@ -59,6 +77,8 @@ namespace JJBookStoreAdmin.Controllers
             {
                 var entity = new ShopCart
                 {
+                    BookID = shopCart.BookID,
+                    UserID = shopCart.UserID,
                     ShopCartId = shopCart.ShopCartId,
                     Quantity = shopCart.Quantity,
                     CreatedTime = shopCart.CreatedTime,
@@ -79,6 +99,8 @@ namespace JJBookStoreAdmin.Controllers
             {
                 var entity = new ShopCart
                 {
+                    BookID = shopCart.BookID,
+                    UserID = shopCart.UserID,
                     ShopCartId = shopCart.ShopCartId,
                     Quantity = shopCart.Quantity,
                     CreatedTime = shopCart.CreatedTime,

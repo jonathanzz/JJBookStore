@@ -11,13 +11,15 @@ namespace JJBookStoreAdmin
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class ShopCart
     {
         public int ShopCartId { get; set; }
         public int BookID { get; set; }
         public int UserID { get; set; }
         public int Quantity { get; set; }
+        [DataType(DataType.DateTime)]
         public System.DateTime CreatedTime { get; set; }
     
         public virtual Book Book { get; set; }

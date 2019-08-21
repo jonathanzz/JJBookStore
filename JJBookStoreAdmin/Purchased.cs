@@ -11,7 +11,8 @@ namespace JJBookStoreAdmin
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Purchased
     {
         public int PurchasedID { get; set; }
@@ -20,6 +21,7 @@ namespace JJBookStoreAdmin
         public double PurchasedPrice { get; set; }
         public int BookID { get; set; }
         public int UserID { get; set; }
+        [DataType(DataType.DateTime)]
         public System.DateTime PurchasedTime { get; set; }
     
         public virtual Book Book { get; set; }

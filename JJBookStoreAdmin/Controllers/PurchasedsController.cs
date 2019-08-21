@@ -18,13 +18,22 @@ namespace JJBookStoreAdmin.Controllers
 
         public ActionResult Index()
         {
+            PopulateUsers();
             return View();
+        }
+        private void PopulateUsers()
+        {
+            var users = db.Users.ToList();
+            ViewData["users"] = users;
+            ViewData["defaultUser"] = users.First();
         }
 
         public ActionResult Purchaseds_Read([DataSourceRequest]DataSourceRequest request)
         {
             IQueryable<Purchased> purchaseds = db.Purchaseds;
             DataSourceResult result = purchaseds.ToDataSourceResult(request, purchased => new {
+                BookID = purchased.BookID,
+                UserID = purchased.UserID,
                 PurchasedID = purchased.PurchasedID,
                 Title = purchased.Title,
                 Quantity = purchased.Quantity,
@@ -42,6 +51,8 @@ namespace JJBookStoreAdmin.Controllers
             {
                 var entity = new Purchased
                 {
+                    BookID = purchased.BookID,
+                    UserID = purchased.UserID,
                     Title = purchased.Title,
                     Quantity = purchased.Quantity,
                     PurchasedPrice = purchased.PurchasedPrice,
@@ -63,6 +74,8 @@ namespace JJBookStoreAdmin.Controllers
             {
                 var entity = new Purchased
                 {
+                    BookID = purchased.BookID,
+                    UserID = purchased.UserID,
                     PurchasedID = purchased.PurchasedID,
                     Title = purchased.Title,
                     Quantity = purchased.Quantity,
@@ -85,6 +98,8 @@ namespace JJBookStoreAdmin.Controllers
             {
                 var entity = new Purchased
                 {
+                    BookID = purchased.BookID,
+                    UserID = purchased.UserID,
                     PurchasedID = purchased.PurchasedID,
                     Title = purchased.Title,
                     Quantity = purchased.Quantity,

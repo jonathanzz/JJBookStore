@@ -1,27 +1,29 @@
 ﻿
 @(Html.Kendo().Grid<JJBookStoreAdmin.Purchased>()
-      .Name("grid")
-      .Columns(columns =>
-      {
-        columns.Bound(c => c.Title);
-        columns.Bound(c => c.Quantity);
-        columns.Bound(c => c.PurchasedPrice);
-        columns.Bound(c => c.PurchasedTime);
-        columns.Command(command => { command.Edit(); command.Destroy(); }).Width(180);
-      })
-      .ToolBar(toolbar => {
-            toolbar.Create();
-      })
-      .ColumnMenu()
-      .Editable(editable => editable.Mode(GridEditMode.PopUp))
-      .Filterable()
-      .Scrollable()
-      .DataSource(dataSource => dataSource
-          .Ajax()
-          .Model(model => model.Id(p => p.PurchasedID))
-          .Read(read => read.Action("Purchaseds_Read", "Purchaseds"))
-          .Create(create => create.Action("Purchaseds_Create", "Purchaseds"))
-          .Update(update => update.Action("Purchaseds_Update", "Purchaseds"))
-          .Destroy(destroy => destroy.Action("Purchaseds_Destroy", "Purchaseds"))
-      )
+          .Name("grid")
+          .Columns(columns =>
+          {
+              columns.Bound(c => c.Title);
+              columns.ForeignKey(c => c.UserID, (System.Collections.IEnumerable)ViewData["users"], "UserID", "UserName").Title("User").Width(150);
+              columns.Bound(c => c.Quantity).Title("#").Width(100);
+              columns.Bound(c => c.PurchasedPrice).Title("$/each").Width(110);
+              columns.Bound(c => c.PurchasedTime).Format("{0:d/M/yyyy HH:mm:ss}").Width(200);
+              columns.Command(command => { command.Edit(); command.Destroy(); }).Width(230);
+          })
+          .ToolBar(toolbar =>
+          {
+              toolbar.Create();
+          })
+          .ColumnMenu()
+          .Editable(editable => editable.Mode(GridEditMode.PopUp))
+          .Filterable()
+          .HtmlAttributes(new { style = "height: 800px" })
+          .DataSource(dataSource => dataSource
+              .Ajax()
+              .Model(model => model.Id(p => p.PurchasedID))
+              .Read(read => read.Action("Purchaseds_Read", "Purchaseds"))
+              .Create(create => create.Action("Purchaseds_Create", "Purchaseds"))
+              .Update(update => update.Action("Purchaseds_Update", "Purchaseds"))
+              .Destroy(destroy => destroy.Action("Purchaseds_Destroy", "Purchaseds"))
+          )
 )

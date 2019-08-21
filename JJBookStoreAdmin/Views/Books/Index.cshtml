@@ -1,31 +1,32 @@
-﻿
-@(Html.Kendo().Grid<JJBookStoreAdmin.Book>()
-      .Name("grid")
-      .Columns(columns =>
-      {
-          columns.Bound(c => c.Title);
-          columns.ForeignKey(c => c.UserID, (System.Collections.IEnumerable)ViewData["users"], "UserID", "UserName").Title("Seller").Width(150);
-          columns.Bound(c => c.Author);
-          columns.Bound(c => c.Description);
-          columns.Bound(c => c.Price);
-          columns.Bound(c => c.Img);
-          columns.Bound(c => c.UploadDate);
-          columns.Bound(c => c.OnSell);
-          columns.Bound(c => c.StockQty);
-          columns.Command(command => { command.Edit(); command.Destroy(); }).Width(180);
-      })
-      .ToolBar(toolbar => {
-          toolbar.Create();
-      })
-      .ColumnMenu()
-      .Editable(editable => editable.Mode(GridEditMode.PopUp))
-      .Filterable()
-      .DataSource(dataSource => dataSource
-          .Ajax()
-          .Model(model => model.Id(p => p.BookID))
-          .Read(read => read.Action("Books_Read", "Books"))
-          .Create(create => create.Action("Books_Create", "Books"))
-          .Update(update => update.Action("Books_Update", "Books"))
-          .Destroy(destroy => destroy.Action("Books_Destroy", "Books"))
-      )
+﻿@(Html.Kendo().Grid<JJBookStoreAdmin.Book>()
+                  .Name("grid")
+                  .Columns(columns =>
+                  {
+                      columns.Bound(c => c.Title).Width(150);
+                      columns.ForeignKey(c => c.UserID, (System.Collections.IEnumerable)ViewData["users"], "UserID", "UserName").Title("Seller").Width(50);
+                      columns.Bound(c => c.Author).Width(80);
+                      columns.Bound(c => c.Description).Width(500);
+                      columns.Bound(c => c.Price).Title("$").Width(50);
+                      columns.Bound(c => c.Img).Width(50);
+                      columns.Bound(c => c.UploadDate).Format("{0:d/M/yyyy}").Title("Date").Width(50);
+                      columns.Bound(c => c.OnSell).Width(50).Title("OnSell");
+                      columns.Bound(c => c.StockQty).Title("#").Width(50);
+                      columns.Command(command => { command.Edit(); command.Destroy(); }).Width(80);
+                  })
+                  .ToolBar(toolbar =>
+                  {
+                      toolbar.Create();
+                  })
+                  .ColumnMenu()
+                  .Editable(editable => editable.Mode(GridEditMode.PopUp))
+                  .Filterable()
+                  .HtmlAttributes(new { style = "height: 800px" })
+                  .DataSource(dataSource => dataSource
+                      .Ajax()
+                      .Model(model => model.Id(p => p.BookID))
+                      .Read(read => read.Action("Books_Read", "Books"))
+                      .Create(create => create.Action("Books_Create", "Books"))
+                      .Update(update => update.Action("Books_Update", "Books"))
+                      .Destroy(destroy => destroy.Action("Books_Destroy", "Books"))
+                  )
 )

@@ -3,12 +3,14 @@
       .Name("grid")
       .Columns(columns =>
       {
-        columns.Bound(c => c.Quantity);
-        columns.Bound(c => c.CreatedTime);
-        columns.Command(command => { command.Edit(); command.Destroy(); }).Width(180);
+          columns.ForeignKey(c => c.UserID, (System.Collections.IEnumerable)ViewData["users"], "UserID", "UserName").Title("User").Width(200);
+          columns.ForeignKey(c => c.BookID, (System.Collections.IEnumerable)ViewData["books"], "BookID", "Title").Title("Title");
+          columns.Bound(c => c.Quantity).Width(100);
+          columns.Bound(c => c.CreatedTime).Format("{0:d/M/yyyy HH:mm:ss}").Width(200);;
+          columns.Command(command => { command.Edit(); command.Destroy(); }).Width(220);
       })
       .ToolBar(toolbar => {
-            toolbar.Create();
+          toolbar.Create();
       })
       .ColumnMenu()
       .Editable(editable => editable.Mode(GridEditMode.PopUp))
@@ -16,7 +18,7 @@
           sortable.SortMode(GridSortMode.SingleColumn);
       })
       .Filterable()
-      .Scrollable()
+      .HtmlAttributes(new { style = "height: 800px" })
       .DataSource(dataSource => dataSource
           .Ajax()
           .Model(model => model.Id(p => p.ShopCartId))

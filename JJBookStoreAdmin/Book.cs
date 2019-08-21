@@ -11,7 +11,8 @@ namespace JJBookStoreAdmin
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Book
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -25,9 +26,11 @@ namespace JJBookStoreAdmin
         public string Title { get; set; }
         public Nullable<int> UserID { get; set; }
         public string Author { get; set; }
+        [DataType(DataType.MultilineText)]
         public string Description { get; set; }
         public double Price { get; set; }
         public string Img { get; set; }
+        [DataType(DataType.Date)]
         public Nullable<System.DateTime> UploadDate { get; set; }
         public bool OnSell { get; set; }
         public int StockQty { get; set; }
