@@ -45,6 +45,7 @@ For book: Create, Edit, Show details, Add to shopping cart, Delete
 #### 20/8 Tue
 - User Telerik UI to build an Administration Database Management site.(DONE)
 - Add ForeignKey Column into Admin Site, and optimize the layout.(DONE)
+- Telerik Datepicker validation format always wrong.
 #### 21/8 Wed
 - Find an easiest way to use Dreamwaver UI template to improve UI.
 - Users shouldn't be able to purchase a book which seller is themselves.
