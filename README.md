@@ -36,12 +36,17 @@ For book: Create, Edit, Show details, Add to shopping cart, Delete
 - Confirmation dialog box before submittion a POST form. (DONE)
 #### 18/8 Sun
 - Purchase button submitting hold until new poped-up confirmation page confirmed. Or confirmation dialog before submitting, while pop-up a new payment page.(DONE, but not available for Goole Chrome, becase of the dialog block policy, details: https://www.chromestatus.com/feature/5140698722467840 )
-- POST request redirect to another POST method, or to GET method with object transfer.
+- POST request redirect to another POST method, or to GET method with object transfer.(Abandoned)
 #### 19/8 Mon
-- User Telerik UI to build an Administration Database Management site.(DONE)
-- Inner website message function between users.
-- Check if at least one checkbox been checked before submitting at shopping cart
+- Sellers inspect sales-records for each selling book.(DONE)
+- Inner website message function between users.(Abandoned)
+- Check if at least one checkbox been checked before submitting at shopping cart(DONE JQuery)
 *******************************************************************************************************
+#### 20/8 Tue
+- User Telerik UI to build an Administration Database Management site.(DONE)
+- Add ForeignKey Column into Admin Site, and optimize the layout.
+#### 21/8 Wed
+-  Find an easiest way to use Dreamwaver UI template to improve UI.
 
 
 ## Getting Started
