@@ -16,7 +16,7 @@ namespace JJBookStore.Controllers
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
-            return HttpNotFound();
+            return View();
         }
 
         public ActionResult Contact()

@@ -2,12 +2,11 @@
 
 @{
     ViewBag.Title = "ManageShopCart";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<script src="~/Scripts/jquery-3.3.1.min.js"></script>
-<script src="~/Scripts/Custom/viewshopcart.js"></script>
+
 
 <h2>Manage Shopping Cart</h2>
+
 @using (Html.BeginForm("ShopCartAction", "ShopCarts", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
@@ -64,7 +63,7 @@
                     $<span id="@i+subtotal"> @(Model.scList[i].Quantity * Model.scList[i].UnitPrice)</span>
                 </td>
                 <td>
-                    @Html.CheckBoxFor(modelItem => Model.scList[i].check, new { id = i + "check", onclick = String.Format("total({0},{1})", i, Model.scList[i].UnitPrice) })
+                    @Html.CheckBoxFor(modelItem => Model.scList[i].check, new { @class="checkboxes",id = i + "check", onclick = String.Format("total({0},{1})", i, Model.scList[i].UnitPrice) })
                 </td>
             </tr>
         }
@@ -76,14 +75,12 @@
             <td align="right" colspan="6">
 
                 <input type="submit" value="Save Change" name="shopCartButton" class="btn btn-default" />
-                <input type="submit" value="Remove" name="shopCartButton" class="btn btn-default"
-                       onclick="return confirm('Do you really want to remove those items?')" />
+                <input id="remove" type="submit" value="Remove" name="shopCartButton" class="btn btn-default" />
             </td>
         </tr>
         <tr>
             <td align="right" colspan="6">
-                <input type="submit" value="Purchase Now" name="shopCartButton" class="btn btn-default"
-                       onclick="return paymentconfirm()"/>
+                <input id="purchasenow" type="submit" value="Purchase Now" name="shopCartButton" class="btn btn-default"/>
             </td>
         </tr>
     </table>
@@ -91,3 +88,5 @@
 <p>
     <a href="javascript:history.back()">Go Back</a>
 </p>
+
+<script src="~/Scripts/Custom/viewshopcart.js"></script>

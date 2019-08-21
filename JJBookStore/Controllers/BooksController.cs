@@ -69,6 +69,7 @@ namespace JJBookStore.Controllers
         }
 
         //GET: Books/SaleRecord/5
+        [Authorize]
         public ActionResult SaleRecord(int? id)
         {
             var purchaseds = db.Purchaseds.Where(p => p.BookID == id);
@@ -81,6 +82,7 @@ namespace JJBookStore.Controllers
         }
 
         // GET: Books/Create
+        [Authorize]
         public ActionResult Create()
         {
             return View();
@@ -108,6 +110,7 @@ namespace JJBookStore.Controllers
         }
 
         // GET: Books/Edit/5
+        [Authorize]
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
@@ -125,6 +128,7 @@ namespace JJBookStore.Controllers
         // POST: Books/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(EditBookViewModel e)
@@ -143,6 +147,7 @@ namespace JJBookStore.Controllers
         }
 
         // GET: Books/Remove/5
+        [Authorize]
         public async Task<ActionResult> Remove(int? id)
         {
             if (id == null)

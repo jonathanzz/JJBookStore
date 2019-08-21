@@ -1,4 +1,4 @@
-﻿/// <reference path="../jquery-3.3.1.min.js" />
+﻿
 function qclick(flag, i, unit) {
     currentTotal = parseFloat(document.getElementById("tt").innerHTML);
     if (flag) {
@@ -50,8 +50,17 @@ function selall() {
     }
 }
 
-function paymentconfirm() {
-    window.open('http://localhost:1234/Purchaseds/PaymentConfirm');
-    //confirm not working at Google Chrome, because of https://www.chromestatus.com/feature/5140698722467840
-    return confirm('Have you finised your payment successfully?');
-}
+$(".btn.btn-default").click(function (event) {
+    if ($(".checkboxes:checked").length < 1) {
+        alert("Please select at least one item.");
+        event.preventDefault();
+        return;
+    } else if (this.id == "purchasenow") {
+        window.open('http://localhost:1234/Purchaseds/PaymentConfirm');
+        //confirm not working at Google Chrome, because of https://www.chromestatus.com/feature/5140698722467840
+        return confirm('Have you finised your payment successfully?');
+    } else if (this.id == "remove") {
+        return confirm('Do you really want to remove those items?')
+    }
+
+});

@@ -38,7 +38,7 @@ namespace JJBookStore.Controllers
                 {
                     if (user.IsValid)
                     {
-                        FormsAuthentication.SetAuthCookie(user.UserName, false);
+                     //   FormsAuthentication.SetAuthCookie(user.UserName, false);
                         FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(2, user.UserName, DateTime.Now,
                         DateTime.Now.AddMinutes(30), false, user.UserID.ToString(), FormsAuthentication.FormsCookiePath);
                         string encTicket = FormsAuthentication.Encrypt(ticket);

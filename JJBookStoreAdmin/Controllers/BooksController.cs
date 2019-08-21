@@ -18,13 +18,22 @@ namespace JJBookStoreAdmin.Controllers
 
         public ActionResult Index()
         {
+            PopulateUsers();
             return View();
+        }
+
+        private void PopulateUsers()
+        {
+            var users = db.Users.ToList();
+            ViewData["users"] = users;
+            ViewData["defaultUser"] = users.First();
         }
 
         public ActionResult Books_Read([DataSourceRequest]DataSourceRequest request)
         {
             IQueryable<Book> books = db.Books;
             DataSourceResult result = books.ToDataSourceResult(request, book => new {
+                UserID = book.UserID,
                 BookID = book.BookID,
                 Title = book.Title,
                 Author = book.Author,
@@ -46,6 +55,7 @@ namespace JJBookStoreAdmin.Controllers
             {
                 var entity = new Book
                 {
+                    UserID = book.UserID,
                     Title = book.Title,
                     Author = book.Author,
                     Description = book.Description,
@@ -71,6 +81,7 @@ namespace JJBookStoreAdmin.Controllers
             {
                 var entity = new Book
                 {
+                    UserID = book.UserID,
                     BookID = book.BookID,
                     Title = book.Title,
                     Author = book.Author,
@@ -97,6 +108,7 @@ namespace JJBookStoreAdmin.Controllers
             {
                 var entity = new Book
                 {
+                    UserID=book.UserID,
                     BookID = book.BookID,
                     Title = book.Title,
                     Author = book.Author,
@@ -115,7 +127,6 @@ namespace JJBookStoreAdmin.Controllers
 
             return Json(new[] { book }.ToDataSourceResult(request, ModelState));
         }
-
         protected override void Dispose(bool disposing)
         {
             db.Dispose();

@@ -3,18 +3,19 @@
       .Name("grid")
       .Columns(columns =>
       {
-        columns.Bound(c => c.Title);
-        columns.Bound(c => c.Author);
-        columns.Bound(c => c.Description);
-        columns.Bound(c => c.Price);
-        columns.Bound(c => c.Img);
-        columns.Bound(c => c.UploadDate);
-        columns.Bound(c => c.OnSell);
-        columns.Bound(c => c.StockQty);
-        columns.Command(command => { command.Edit(); command.Destroy(); }).Width(180);
+          columns.Bound(c => c.Title);
+          columns.ForeignKey(c => c.UserID, (System.Collections.IEnumerable)ViewData["users"], "UserID", "UserName").Title("Seller").Width(150);
+          columns.Bound(c => c.Author);
+          columns.Bound(c => c.Description);
+          columns.Bound(c => c.Price);
+          columns.Bound(c => c.Img);
+          columns.Bound(c => c.UploadDate);
+          columns.Bound(c => c.OnSell);
+          columns.Bound(c => c.StockQty);
+          columns.Command(command => { command.Edit(); command.Destroy(); }).Width(180);
       })
       .ToolBar(toolbar => {
-            toolbar.Create();
+          toolbar.Create();
       })
       .ColumnMenu()
       .Editable(editable => editable.Mode(GridEditMode.PopUp))
