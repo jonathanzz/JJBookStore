@@ -23,22 +23,22 @@ namespace JJBookStore.ViewModels
         public string Description { get; set; }
         [Required(ErrorMessage = "Price can not be empty")]
         public double Price { get; set; }
-        [DataType(DataType.ImageUrl)]
-        public string Img { get; set; }
+        [DataType(DataType.Upload)]
+        public HttpPostedFileBase Img { get; set; }
         [DataType(DataType.Date)]
         public DateTime? UploadDate { get; set; }
         public bool OnSell { get; set; }
 
         public CreateBookViewModel() { }
 
-        public static Book ConvertToBook(CreateBookViewModel c, Book book, int id)
+        public static Book ConvertToBook(CreateBookViewModel c, Book book, int id, string imgUrl)
         {
             book.UserID = id;
             book.Title = c.Title;
             book.Author = c.Author;
             book.Description = c.Description;
             book.StockQty = c.StockQty;
-            book.Img = c.Img;
+            book.Img = imgUrl;
             book.Price = c.Price;
             book.UploadDate = c.UploadDate;
             book.OnSell = c.OnSell;
@@ -61,8 +61,9 @@ namespace JJBookStore.ViewModels
         public string Description { get; set; }
         [Required(ErrorMessage = "Price can not be empty")]
         public double Price { get; set; }
-        [DataType(DataType.ImageUrl)]
-        public string Img { get; set; }
+        [DataType(DataType.Upload)]
+        public HttpPostedFileBase Img { get; set; }
+        public string OriginalImgUrl { get; set; }
         [DataType(DataType.Date)]
         public DateTime? UploadDate { get; set; }
         public bool OnSell { get; set; }
@@ -77,23 +78,26 @@ namespace JJBookStore.ViewModels
             Description = book.Description;
             StockQty = book.StockQty;
             Price = book.Price;
-            Img = book.Img;
+            Img = null;
+            OriginalImgUrl = book.Img;
             UploadDate = book.UploadDate;
             OnSell = book.OnSell;
         }
 
-        public static Book ConvertToBook(EditBookViewModel e, Book book)
+        public static Book ConvertToBook(EditBookViewModel e, Book book, string imgUrl)
         {
             book.Title = e.Title;
             book.Author = e.Author;
             book.Description = e.Description;
             book.StockQty = e.StockQty;
             book.Price = e.Price;
-            book.Img = e.Img;
+            book.Img = imgUrl;
             book.UploadDate = e.UploadDate;
             book.OnSell = e.OnSell;
             return book;
         }
     }
+
+   
 
 }

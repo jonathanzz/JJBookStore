@@ -55,10 +55,31 @@
     <div class="container body-content">
         @RenderBody()
         <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
     </div>
+
+
+    <footer class="footer2">
+        
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 widget">
+                            <p>
+                                <a class="active" href="#">Home</a> |
+                                <a href="advancedSearch.jsp">AdvancedSearch</a>
+                                |<a href="login.jsp">Sign In</a>
+                            </p>
+                    </div>
+                    <div class="col-md-6 widget">
+                            <p class="text-right">
+                                Copyright &copy; 2015, Designed by
+                                DuangDuang
+                            </p>
+                    </div>
+                </div>
+                <!-- /row of widgets -->
+            </div>
+    </footer>
+
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")

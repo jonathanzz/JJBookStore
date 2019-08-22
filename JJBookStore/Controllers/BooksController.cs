@@ -13,6 +13,7 @@ using System.Linq.Dynamic;
 using JJBookStore.ViewModels;
 using PagedList;
 using System.Web.Security;
+using System.IO;
 
 namespace JJBookStore.Controllers
 {
@@ -20,7 +21,6 @@ namespace JJBookStore.Controllers
     {
         private BookStoreContext db = new BookStoreContext();
         private static int PageSize = 5; //one page contains elements
-
         // GET: Books/Search
         public ActionResult Search(string searchString, string columnString, string currentSearch, int? page)
         {
@@ -74,7 +74,7 @@ namespace JJBookStore.Controllers
         {
             var purchaseds = db.Purchaseds.Where(p => p.BookID == id);
             IList<SaleRecordViewModel> saleRecordList = new List<SaleRecordViewModel>();
-            foreach(var p in purchaseds)
+            foreach (var p in purchaseds)
             {
                 saleRecordList.Add(new SaleRecordViewModel(p));
             }
@@ -98,13 +98,21 @@ namespace JJBookStore.Controllers
         {
             if (ModelState.IsValid)
             {
-                FormsIdentity userIDIdentity = (FormsIdentity)User.Identity;
-                int id = Convert.ToInt32(userIDIdentity.Ticket.UserData);
-                var book = new Book();
-                db.Books.Add(CreateBookViewModel.ConvertToBook(c, book, id));
-                await db.SaveChangesAsync();
-                TempData["Msg"] = "alert('Book: " + c.Title + " has been created successfully!')";
-                return RedirectToAction("SellingBook");
+                var imgUrl = UploadImage(c.Img, "");
+                if (!String.IsNullOrEmpty(imgUrl))
+                {
+                    FormsIdentity userIDIdentity = (FormsIdentity)User.Identity;
+                    int id = Convert.ToInt32(userIDIdentity.Ticket.UserData);
+                    var book = new Book();
+                    db.Books.Add(CreateBookViewModel.ConvertToBook(c, book, id, imgUrl));
+                    await db.SaveChangesAsync();
+                    TempData["Msg"] = "alert('Book: " + c.Title + " has been created successfully!')";
+                    return RedirectToAction("SellingBook");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Please choose either a GIF, JPG or PNG image.");
+                }
             }
             return View();
         }
@@ -135,13 +143,21 @@ namespace JJBookStore.Controllers
         {
             if (ModelState.IsValid)
             {
-                Book book = await db.Books.FindAsync(e.BookID);
-                if (book == null)
-                    return HttpNotFound();
-                db.Entry(EditBookViewModel.ConvertToBook(e, book)).State = EntityState.Modified;
-                await db.SaveChangesAsync();
-                TempData["Msg"] = "alert('Book: " + e.Title + " has been edited successfully!')";
-                return RedirectToAction("SellingBook");
+                var imgUrl = UploadImage(e.Img, e.OriginalImgUrl);
+                if (!String.IsNullOrEmpty(imgUrl))
+                {
+                    Book book = await db.Books.FindAsync(e.BookID);
+                    if (book == null)
+                        return HttpNotFound();
+                    db.Entry(EditBookViewModel.ConvertToBook(e, book, imgUrl)).State = EntityState.Modified;
+                    await db.SaveChangesAsync();
+                    TempData["Msg"] = "alert('Book: " + e.Title + " has been edited successfully!')";
+                    return RedirectToAction("SellingBook");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Please choose either a GIF, JPG or PNG image.");
+                }
             }
             return View(e);
         }
@@ -170,6 +186,45 @@ namespace JJBookStore.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        private string UploadImage(HttpPostedFileBase img, string originalImgUrl)
+        {
+            var uploadDir = "~/Uploads/BookImg/";
+            var defulatImg = "defaultImg.jpg";
+            var imageUrl = "";
+            var validImageTypes = new string[]
+            {
+                "image/gif",
+                "image/jpeg",
+                "image/pjpeg",
+                "image/png"
+            };
+            if (img == null || img.ContentLength == 0)
+            {
+                if (String.IsNullOrEmpty(originalImgUrl))
+                {
+                    imageUrl = Path.Combine(uploadDir, defulatImg);
+                }
+                else
+                {
+                    imageUrl = originalImgUrl;
+                }
+            }
+            else if (validImageTypes.Contains(img.ContentType))
+            {
+                var imagePath = Path.Combine(Server.MapPath(uploadDir), img.FileName);
+                imageUrl = Path.Combine(uploadDir, img.FileName);
+                img.SaveAs(imagePath);
+                if (!String.IsNullOrEmpty(originalImgUrl) 
+                    && !originalImgUrl.Equals(Path.Combine(uploadDir, defulatImg)))
+                {
+                    var originalPath = Path.Combine(Server.MapPath(originalImgUrl));
+                    System.IO.File.Delete(originalPath);
+                }
+            }
+
+            return imageUrl;
         }
     }
 }

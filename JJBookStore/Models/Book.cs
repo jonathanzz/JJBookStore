@@ -23,6 +23,7 @@ namespace JJBookStore.Models
         public string Author { get; set; }
         public string Description { get; set; }
         public double Price { get; set; }
+        [DataType(DataType.ImageUrl)]
         public string Img { get; set; }
         [DataType(DataType.Date)]
         public DateTime? UploadDate { get; set; }

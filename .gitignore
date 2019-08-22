@@ -259,3 +259,6 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+/JJBookStore/Uploads/BookImg/sm1.jpg
+/JJBookStore/Uploads/BookImg/book1.jpg
+/JJBookStore/Uploads/BookImg/book2.jpg

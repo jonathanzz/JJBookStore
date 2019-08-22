@@ -6,87 +6,94 @@
 
 
 <h2>Manage Shopping Cart</h2>
-
-@using (Html.BeginForm("ShopCartAction", "ShopCarts", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+@if (Model.scList.Count > 0)
 {
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true, "ShopCartAction", new { @class = "text-danger" })
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.scList.FirstOrDefault().Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.scList.FirstOrDefault().Quantity)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.scList.FirstOrDefault().Seller)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.scList.FirstOrDefault().UnitPrice)
-            </th>
-            <th>
-                Sub Total
-            </th>
-            <th>
-                @Html.CheckBox("selectall", new { onclick = "selall()" })
-            </th>
-        </tr>
-        @for (int i = 0; i < Model.scList.Count; i++)
-        {
-            @Html.HiddenFor(modelItem => Model.scList[i].ShopCartId)
+
+    using (Html.BeginForm("ShopCartAction", "ShopCarts", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "ShopCartAction", new { @class = "text-danger" })
+        <table class="table">
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => Model.scList[i].Title)
-                    @Html.HiddenFor(modelItem => Model.scList[i].Title)
-                </td>
-                <td>
-                    <input type="button" value="-" onclick="qclick(false,@i,@Model.scList[i].UnitPrice)">
+                <th>
+                    @Html.DisplayNameFor(model => model.scList.FirstOrDefault().Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.scList.FirstOrDefault().Quantity)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.scList.FirstOrDefault().Seller)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.scList.FirstOrDefault().UnitPrice)
+                </th>
+                <th>
+                    Sub Total
+                </th>
+                <th>
+                    @Html.CheckBox("selectall", new { onclick = "selall()" })
+                </th>
+            </tr>
+            @for (int i = 0; i < Model.scList.Count; i++)
+            {
+                @Html.HiddenFor(modelItem => Model.scList[i].ShopCartId)
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => Model.scList[i].Title)
+                        @Html.HiddenFor(modelItem => Model.scList[i].Title)
+                    </td>
+                    <td>
+                        <input type="button" value="-" onclick="qclick(false,@i,@Model.scList[i].UnitPrice)">
 
-                    @Html.TextBoxFor(modelItem => Model.scList[i].Quantity,
-                        new { id = i, @readonly = "readonly", style = "width:20px;text-align:center;" })
+                        @Html.TextBoxFor(modelItem => Model.scList[i].Quantity,
+              new { id = i, @readonly = "readonly", style = "width:20px;text-align:center;" })
 
-                    @Html.ValidationMessageFor(modelItem => Model.scList[i].Quantity, "", new { @class = "text-danger" })
+                        @Html.ValidationMessageFor(modelItem => Model.scList[i].Quantity, "", new { @class = "text-danger" })
 
-                    <input type="button" value="+" onclick="qclick(true,@i,@Model.scList[i].UnitPrice)">
-                </td>
+                        <input type="button" value="+" onclick="qclick(true,@i,@Model.scList[i].UnitPrice)">
+                    </td>
 
-                <td>
-                    @Html.DisplayFor(modelItem => Model.scList[i].Seller)
-                    @Html.HiddenFor(modelItem => Model.scList[i].Seller)
-                </td>
-                <td>
-                    $@Html.DisplayFor(modelItem => Model.scList[i].UnitPrice)
-                    @Html.HiddenFor(modelItem => Model.scList[i].UnitPrice)
-                </td>
-                <td>
-                    $<span id="@i+subtotal"> @(Model.scList[i].Quantity * Model.scList[i].UnitPrice)</span>
-                </td>
-                <td>
-                    @Html.CheckBoxFor(modelItem => Model.scList[i].check, new { @class="checkboxes",id = i + "check", onclick = String.Format("total({0},{1})", i, Model.scList[i].UnitPrice) })
+                    <td>
+                        @Html.DisplayFor(modelItem => Model.scList[i].Seller)
+                        @Html.HiddenFor(modelItem => Model.scList[i].Seller)
+                    </td>
+                    <td>
+                        $@Html.DisplayFor(modelItem => Model.scList[i].UnitPrice)
+                        @Html.HiddenFor(modelItem => Model.scList[i].UnitPrice)
+                    </td>
+                    <td>
+                        $<span id="@i+subtotal"> @(Model.scList[i].Quantity * Model.scList[i].UnitPrice)</span>
+                    </td>
+                    <td>
+                        @Html.CheckBoxFor(modelItem => Model.scList[i].check, new { @class = "checkboxes", id = i + "check", onclick = String.Format("total({0},{1})", i, Model.scList[i].UnitPrice) })
+                    </td>
+                </tr>
+            }
+            <tr>
+                <td align="right" colspan="4"><b>Total Price</b></td>
+                <td>$<div id="tt" style="float:right;">0.00</div></td>
+            </tr>
+            <tr>
+                <td align="right" colspan="6">
+
+                    <input type="submit" value="Save Change" name="shopCartButton" class="btn btn-default" />
+                    <input id="remove" type="submit" value="Remove" name="shopCartButton" class="btn btn-default" />
                 </td>
             </tr>
-        }
-        <tr>
-            <td align="right" colspan="4"><b>Total Price</b></td>
-            <td>$<div id="tt" style="float:right;">0.00</div></td>
-        </tr>
-        <tr>
-            <td align="right" colspan="6">
-
-                <input type="submit" value="Save Change" name="shopCartButton" class="btn btn-default" />
-                <input id="remove" type="submit" value="Remove" name="shopCartButton" class="btn btn-default" />
-            </td>
-        </tr>
-        <tr>
-            <td align="right" colspan="6">
-                <input id="purchasenow" type="submit" value="Purchase Now" name="shopCartButton" class="btn btn-default"/>
-            </td>
-        </tr>
-    </table>
+            <tr>
+                <td align="right" colspan="6">
+                    <input id="purchasenow" type="submit" value="Purchase Now" name="shopCartButton" class="btn btn-default" />
+                </td>
+            </tr>
+        </table>
+    }
 }
-<p>
-    <a href="javascript:history.back()">Go Back</a>
-</p>
+else
+{
+        <img src = "~/Content/Images/cart.jpg" />
+}
+    <p>
+        <a href="javascript:history.back()">Go Back</a>
+    </p>
 
-<script src="~/Scripts/Custom/viewshopcart.js"></script>
+    <script src="~/Scripts/Custom/viewshopcart.js"></script>

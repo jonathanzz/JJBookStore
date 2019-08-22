@@ -10,7 +10,34 @@
 
 <h2>Index</h2>
 <h4>Total results: @ViewBag.totalResult</h4>
+
 <table class="table">
+    <tr>
+        <th>
+            Seller
+        </th>
+        <th>
+            <div style="text-align:center">Title</div>
+        </th>
+        <th>
+            Stock Quantity
+        </th>
+        <th>
+            Author
+        </th>
+        <th>
+            Price
+        </th>
+        <th>
+            <div style="text-align:center">Img</div>
+        </th>
+        <th>
+            Upload Date
+        </th>
+        <th>
+            Operation
+        </th>
+    </tr>
 
     @foreach (var item in Model)
     {
@@ -31,15 +58,13 @@
                 @Html.DisplayFor(modelItem => item.Price)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Img)
+                <img src="@Url.Content(item.Img)" alt="Image" width="150" />
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.UploadDate)
             </td>
-            <td>
-                @Html.ActionLink("Details", "Details", new { id = item.BookID })
-            </td>
-            <td>
+            <td width="150">
+                @Html.ActionLink("Details", "Details", new { id = item.BookID }) /
                 @Html.ActionLink("Add To Cart", "AddToShopCart", "ShopCarts", new { id = item.BookID }, null)
             </td>
         </tr>
