@@ -6,12 +6,12 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-    @Scripts.Render("~/Scripts/jquery-3.3.1.min.js")
 </head>
 <body>
     <script>
         @Html.Raw(TempData["Msg"])
     </script>
+   
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -59,30 +59,31 @@
 
 
     <footer class="footer2">
-        
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6 widget">
-                            <p>
-                                <a class="active" href="#">Home</a> |
-                                <a href="advancedSearch.jsp">AdvancedSearch</a>
-                                |<a href="login.jsp">Sign In</a>
-                            </p>
-                    </div>
-                    <div class="col-md-6 widget">
-                            <p class="text-right">
-                                Copyright &copy; 2015, Designed by
-                                DuangDuang
-                            </p>
-                    </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 widget">
+                    <p>
+                        <a class="active" href="#">Home</a> |
+                        <a href="advancedSearch.jsp">AdvancedSearch</a>
+                        |<a href="login.jsp">Sign In</a>
+                    </p>
                 </div>
-                <!-- /row of widgets -->
+                <div class="col-md-6 widget">
+                    <p class="text-right">
+                        Copyright &copy; 2019, Designed by
+                        DuangDuang
+                    </p>
+                </div>
             </div>
+            <!-- /row of widgets -->
+        </div>
     </footer>
 
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/popper")
     @RenderSection("scripts", required: false)
 </body>
 </html>

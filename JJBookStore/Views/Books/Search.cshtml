@@ -2,15 +2,13 @@
 @using PagedList.Mvc;
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Search Result";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 
-
-<h2>Index</h2>
+<h2>Search Result</h2>
 <h4>Total results: @ViewBag.totalResult</h4>
-
 <table class="table">
     <tr>
         <th>
@@ -74,7 +72,7 @@
 
 <br />
 <br />
-Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
-@Html.PagedListPager(Model, page => Url.Action("Search",
+    @Html.PagedListPager(Model, page => Url.Action("Search",
     new { page, currentSearch = ViewBag.currentSearch, columnString = ViewBag.columnString }))
