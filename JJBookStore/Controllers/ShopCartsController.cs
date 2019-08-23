@@ -33,13 +33,12 @@ namespace JJBookStore.Controllers
         //GET: ShopCarts/AddToShopCart/5
         public async Task<ActionResult> AddToShopCart(int id)
         {
-            FormsIdentity userIDIdentity = (FormsIdentity)User.Identity;
-            
-            if (userIDIdentity == null)
+            if (!Request.IsAuthenticated)
             {
                 TempData["Msg"] = "alert('Only registered user can add item to shopping cart, please sign in or register!')";
                 return RedirectToAction("SignIn","Users");
             }
+            FormsIdentity userIDIdentity = (FormsIdentity)User.Identity;
             int UserID = Convert.ToInt32(userIDIdentity.Ticket.UserData);
             var shopCart = db.ShopCarts.FirstOrDefault(sc => sc.UserID == UserID && sc.BookID == id);
             if (shopCart != null)
@@ -72,7 +71,7 @@ namespace JJBookStore.Controllers
                 case "Remove":
                     // call another action to perform the cancellation
                     return await (RemoveShopCart(scVMList));
-                case "Purchase Now":
+                case "Buy Now":
                     return await (new PurchasedsController().PurchaseNow(scVMList));
                 default:
                     // If they've submitted the form without a submitButton, 

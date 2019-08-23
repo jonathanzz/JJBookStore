@@ -50,7 +50,7 @@ function selall() {
     }
 }
 
-$(".btn.btn-default").click(function (event) {
+$("input[type=submit]").click(function (event) {
     if ($(".checkboxes:checked").length < 1) {
         alert("Please select at least one item.");
         event.preventDefault();

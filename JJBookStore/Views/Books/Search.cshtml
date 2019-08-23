@@ -6,19 +6,14 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
+<br />
 <h2>Search Result</h2>
+<br /><br />
 <h4>Total results: @ViewBag.totalResult</h4>
 <table class="table">
     <tr>
         <th>
-            Seller
-        </th>
-        <th>
             <div style="text-align:center">Title</div>
-        </th>
-        <th>
-            Stock Quantity
         </th>
         <th>
             Author
@@ -30,42 +25,41 @@
             <div style="text-align:center">Img</div>
         </th>
         <th>
-            Upload Date
+            Stock Quantity
         </th>
         <th>
-            Operation
+            Seller
+        </th>
+        <th>
+            Operations
         </th>
     </tr>
 
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.User.UserName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StockQty)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Author)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                <img src="@Url.Content(item.Img)" alt="Image" width="150" />
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UploadDate)
-            </td>
-            <td width="150">
-                @Html.ActionLink("Details", "Details", new { id = item.BookID }) /
-                @Html.ActionLink("Add To Cart", "AddToShopCart", "ShopCarts", new { id = item.BookID }, null)
-            </td>
-        </tr>
+    <tr>
+        <td>
+            @Html.ActionLink(item.Title, "Details", new { id = item.BookID }, new { @class = "alert-link" })
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Author)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Price)
+        </td>
+        <td>
+            <img src="@Url.Content(item.Img)" alt="Image" width="150" />
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StockQty)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.UserName)
+        </td>
+        <td width="120">
+            @Html.ActionLink("Add To Cart", "AddToShopCart", "ShopCarts", new { id = item.BookID }, new { @class = "btn btn-outline-primary btn-sm mt-5" })
+        </td>
+    </tr>
     }
 
 </table>

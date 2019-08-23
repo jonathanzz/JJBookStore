@@ -12,6 +12,7 @@ using JJBookStore.Models;
 using System.Web.Security;
 using JJBookStore.ViewModels;
 using System.Data.Entity.Validation;
+using JJBookStore.Utility;
 
 namespace JJBookStore.Controllers
 {
@@ -98,12 +99,29 @@ namespace JJBookStore.Controllers
                 var newUser = new User();
                 db.Users.Add(RegisterViewModel.ConvertToUser(r,newUser));
                 await db.SaveChangesAsync();
-                TempData["Msg"] = "alert('Congratulations! You have been registered successfully! Please sign in now.')";
+                if (SendEmail.RegisterConfirmation(newUser))
+                {
+                    TempData["Msg"] = "alert('Congratulations! You have been registered successfully! " +
+                        "Please click the validation link in your Email box to validate your account.')";
+                }
+                else
+                {
+                    //return error;
+                }
                 return RedirectToAction("SignIn", "Users");
             }
 
             return View();
         }
+
+        //GET: Users/NewUserValidation/id=?&&validString=?
+        public ActionResult NewUserValidation(int id, string validString)
+        {
+            User user = db.Users.Find(id);
+            //if (user.) { TO BE DONE } 
+            return View();
+        }
+
 
         // GET: Users/Edit
         [Authorize]

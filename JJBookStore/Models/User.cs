@@ -16,7 +16,6 @@ namespace JJBookStore.Models
         [DataType(DataType.Password)]
         public string Password { get; set; }
         [Required]
-        [DataType(DataType.EmailAddress)]
         public string EmailAddress { get; set; }
         [DataType(DataType.Date)]
         [Required]

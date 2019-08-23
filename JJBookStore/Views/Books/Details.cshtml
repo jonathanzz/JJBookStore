@@ -5,42 +5,33 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<h2>Book Details</h2>
 
 <div>
-    <h4>Book</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            Seller Name
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.User.UserName)
-        </dd>
-
-        <dt>
+    <img src="@Url.Content(Model.Img)" alt="Image" width="170" class="rounded mx-auto d-block" />
+    <dl class="list-group">
+        <dt class="list-group-item-secondary">
             @Html.DisplayNameFor(model => model.Title)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Title)
+            <b>@Html.DisplayFor(model => model.Title)</b>
         </dd>
-        <dt>
+        <dt class="list-group-item-secondary">
             @Html.DisplayNameFor(model => model.Author)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Author)
         </dd>
-        <dt>
+        <dt class="list-group-item-secondary">
             @Html.DisplayNameFor(model => model.Description)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.Description)
         </dd>
-        <dt>
+        <dt class="list-group-item-secondary">
             @Html.DisplayNameFor(model => model.Price)
         </dt>
 
@@ -48,7 +39,7 @@
             @Html.DisplayFor(model => model.Price)
         </dd>
 
-        <dt>
+        <dt class="list-group-item-secondary">
             @Html.DisplayNameFor(model => model.StockQty)
         </dt>
 
@@ -56,15 +47,13 @@
             @Html.DisplayFor(model => model.StockQty)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Img)
+        <dt class="list-group-item-secondary">
+            Seller Name
         </dt>
-
         <dd>
-            @Html.DisplayFor(model => model.Img)
+            @Html.DisplayFor(model => model.User.UserName)
         </dd>
-
-        <dt>
+        <dt class="list-group-item-secondary">
             @Html.DisplayNameFor(model => model.UploadDate)
         </dt>
 
@@ -72,7 +61,7 @@
             @Html.DisplayFor(model => model.UploadDate)
         </dd>
 
-        <dt>
+        <dt class="list-group-item-secondary">
             @Html.DisplayNameFor(model => model.OnSell)
         </dt>
 
@@ -81,12 +70,9 @@
         </dd>
 
     </dl>
-    <dl>
-        <dd>
-            @Html.ActionLink("Add To Cart", "AddToShopCart", "ShopCarts", new { id = Model.BookID }, null)
-        </dd>
-    </dl>
 </div>
-<p>
-    <a href="javascript:history.back()">Go Back</a>
-</p>
+<br />
+<div class="float-right">
+    @Html.ActionLink("Add To Cart", "AddToShopCart", "ShopCarts", new { id = Model.BookID }, new { @class = "btn btn-primary" })
+</div>
+<a href="javascript:history.back()" class="btn btn-outline-dark btn-sm">Go Back</a>

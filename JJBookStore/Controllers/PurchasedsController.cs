@@ -1,5 +1,6 @@
 ﻿using JJBookStore.DAL;
 using JJBookStore.Models;
+using JJBookStore.Utility;
 using JJBookStore.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -67,14 +68,25 @@ namespace JJBookStore.Controllers
                         }
                         else if (book.StockQty == scVm.Quantity)
                         {
-
-                            book.OnSell = false;
+                            //Send Email to tell seller that one item is out of stock.
+                            if (SendEmail.OutofStockNotification(book))
+                            {
+                                book.OnSell = false;
+                            }
+                            else
+                            {
+                                //return error
+                            }
                         }
 
                         book.StockQty -= 1;                                               //Modified book StockQty if it was sold
                         db.Entry(book).State = EntityState.Modified;
                         db.Purchaseds.Add(new Purchased(shopcart, scVm.Quantity));
                         db.ShopCarts.Remove(shopcart);                                  //Remove purchased items from shopcart
+                        if (!SendEmail.SoldNotification(book))
+                        {
+                            //return error
+                        }
                     }
                 }
                 await db.SaveChangesAsync();

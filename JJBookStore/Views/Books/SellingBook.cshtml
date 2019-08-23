@@ -1,17 +1,17 @@
 ﻿@model IEnumerable<JJBookStore.Models.Book>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "My Selling Book";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h2>Index</h2>
-
+<br />
+<h2>My Selling Book</h2>
+<br />
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Create","Books",new { area = "" }, new { @class = "btn btn-primary" })
 </p>
 <table class="table">
-    <tr>
+    <tr class="table-bordered table-secondary">
         <th>
             @Html.DisplayNameFor(model => model.Title)
         </th>
@@ -33,14 +33,14 @@
         <th>
             @Html.DisplayNameFor(model => model.OnSell)
         </th>
-        <th></th>
+        <th width="70">Operations</th>
     </tr>
 
     @foreach (var item in Model)
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Title)
+                @Html.ActionLink(item.Title, "Details", new { id = item.BookID },new { @class="alert-link"})
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.StockQty)
@@ -61,10 +61,10 @@
                 @Html.DisplayFor(modelItem => item.OnSell)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.BookID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.BookID }) |
-                @Html.ActionLink("Sale Record", "SaleRecord", new { id = item.BookID }) |
-                @Html.ActionLink("Remove", "Remove", new { id = item.BookID }, new { onclick = "return confirm('Do you really want to remove this book?')" })
+                @Html.ActionLink("Edit", "Edit", new { id = item.BookID }, new { @class = "btn btn-outline-primary btn-sm mt-3" }) 
+                @Html.ActionLink("SaleRecords", "SaleRecord", new { id = item.BookID }, new { @class = "btn btn-outline-success btn-sm mt-2" })
+                @Html.ActionLink("Remove", "Remove", new { id = item.BookID }, new { @class = "btn btn-outline-danger btn-sm mt-2",
+                                   onclick = "return confirm('Do you really want to remove this book?')" })
             </td>
         </tr>
     }
@@ -72,5 +72,6 @@
 </table>
 
 <p>
-    <a href="javascript:history.back()">Go Back</a>
+    <a href="javascript:history.back()" class="btn btn-outline-dark btn-sm">Go Back</a>
+
 </p>

@@ -10,7 +10,7 @@ namespace JJBookStore.ViewModels
     public class SignInViewModel
     {
         [Required(ErrorMessage = "Username or Email address can not be empty")]
-        [Display(Name = "Username or Email: ")]
+        [Display(Name = "Username or Email Address")]
         public string SignInName { get; set; }
         [Required(ErrorMessage = "Password can not be empty")]
         [DataType(DataType.Password)]
@@ -107,15 +107,15 @@ namespace JJBookStore.ViewModels
     {
         public int UserID { get; set; }
         [Required(ErrorMessage = "Current Password can not be empty")]
-        [Display(Name = "Current password: ")]
+        [Display(Name = "Current password")]
         [DataType(DataType.Password)]
         public string CurrentPwd { get; set; }
         [Required(ErrorMessage = "New Password can not be empty")]
-        [Display(Name = "New password: ")]
+        [Display(Name = "New password")]
         [DataType(DataType.Password)]
         [StringLength(50, MinimumLength = 6, ErrorMessage = "Password should be least 6 characters.")]
         public string Password { get; set; }
-        [Display(Name = "Confirm new password: ")]
+        [Display(Name = "Confirm password")]
         [DataType(DataType.Password)]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string PasswordConfirm { get; set; }

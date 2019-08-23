@@ -1,21 +1,22 @@
 ﻿
 @model System.Web.Mvc.HandleErrorInfo
 @{
-    Layout = null;
     ViewBag.Title = "Error";
 }
+<br />
 <div class="list-header clearfix">
-    <span>Error</span>
+    <h1>Error</h1>
 </div>
-
-<img src="~/Content/Images/error.gif" />
+<br />
+<br />
+<img src="~/Content/Images/error.gif" class="rounded mx-auto d-block" />
 <div class="list-sfs-holder">
-    <div class="alert alert-error">
+    <div class="alert alert-warning text-center">
         An unexpected error has occurred. Please contact the system administrator.
     </div>
     @if (Model != null && HttpContext.Current.IsDebuggingEnabled)
     {
-        <div>
+        <div class="alert alert-warning">
             <p>
                 <b>Exception:</b> @Model.Exception.Message<br />
                 <b>Controller:</b> @Model.ControllerName<br />

@@ -4,27 +4,34 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>SignIn</h2>
-@using (Html.BeginForm("SignIn", "Users", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+
+<br /><br />
+<br /><br />
+@using (Html.BeginForm("SignIn", "Users", FormMethod.Post, new { @class = "form-signin justify-content-xl-center", role = "form" }))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true);
-    <div>
+    <div class="text-center">
         <fieldset>
-            <legend>Please Login Here</legend>
+            <legend><b>Please Login Here</b></legend>
+            <br />
             <div class="editor-label">@Html.LabelFor(u => u.SignInName)</div>
             <div class="editor-field">
                 @Html.TextBoxFor(u => u.SignInName)
-                @Html.ValidationMessageFor(u => u.SignInName)
             </div>
+            @Html.ValidationMessageFor(u => u.SignInName,null, new { @class = "text-danger" })
+            <br />
             <div class="editor-label">@Html.LabelFor(u => u.Password)</div>
             <div class="editor-field">
                 @Html.PasswordFor(u => u.Password)
-                @Html.ValidationMessageFor(u => u.Password)
             </div>
-            <input type="submit" value="Sign In" />
+            @Html.ValidationMessageFor(u => u.Password, null, new { @class = "text-danger" })
+
+            <br />
+            <input type="submit" value="Sign In" class="btn btn-outline-primary btn-sm" />
         </fieldset>
-        <p>If you don't have an account, please register here</p>
-        <a>@Html.ActionLink("Register", "Register", "Users")</a>
+        <br />
+        <p>If you don't have an account, please <a>@Html.ActionLink("Register", "Register", "Users")</a> here.</p>
+        
     </div>
 }  

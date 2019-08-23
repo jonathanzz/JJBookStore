@@ -1,11 +1,56 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
-<div class="">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+
+
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-12">
+            <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    <li data-target="#carouselExampleControls" data-slide-to="0" class="active"></li>
+                    <li data-target="#carouselExampleControls" data-slide-to="1"></li>
+                    <li data-target="#carouselExampleControls" data-slide-to="2"></li>
+                </ol>
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img class="d-block w-100" src="~/Content/Images/bg1.jpg" alt="First slide">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>Tons of Books</h5>
+                            <p>More than 10000 users choose JJ Bookstore to sell their books!</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img class="d-block w-100" src="~/Content/Images/bg2.jpg" alt="Second slide">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>Lowest Price</h5>
+                            <p>JJ Bookstore has the lOWEST PRICE comparing with other book website in Australia!</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img class="d-block w-100" src="~/Content/Images/bg3.jpg" alt="Third slide">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>Reliable Products</h5>
+                            <p>JJ Bookstore promise all our products are reliable and real!</p>
+                        </div>
+                    </div>
+                </div>
+                <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <hr>
 </div>
+
+
+
 
 @{
     List<SelectListItem> listItems = new List<SelectListItem>();
@@ -27,14 +72,46 @@
     });
 }
 
-@using (Html.BeginForm("Search", "Books", FormMethod.Get, new { @class = "form-horizontal", role = "form" }))
+<br />
+<h2 class="text-center" style="font-family:georgia,garamond,serif;font-style:italic;">SEARCH BOOK HERE</h2>
+<br />
+@using (Html.BeginForm("Search", "Books", FormMethod.Get, new { @class = "form-inline  justify-content-xl-center", role = "form" }))
 {
-    <p>
-        <h1>Search Book Here</h1>
+    
+    @Html.DropDownList("columnString", listItems, null, new { @class = "dropdown-header" })
+    @Html.TextBox("searchString",  null,new { @class = "form-control ml-2" })
+    <input type="submit" value="Search" class="btn btn-outline-primary ml-md-2" />
 
-
-        @Html.DropDownList("columnString", listItems)
-        @Html.TextBox("searchString")
-        <input type="submit" value="Search" />
-    </p>
 }
+
+<br /><br />
+<br />
+
+<div class="container">
+    <div class="row">
+        <div class="col-4">
+            <div class="row">
+                <div class="col-2"><img class="rounded-circle" alt="Free Shipping" src="~/Content/Images/ship.jpg"></div>
+                <div class="col-lg-6 col-10 ml-1">
+                    <h4>Free Shipping</h4>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="row">
+                <div class="col-2"><img class="rounded-circle" alt="Free Returns" src="~/Content/Images/return.jpg"></div>
+                <div class="col-lg-6 col-10 ml-2">
+                    <h4>Free Returns</h4>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="row">
+                <div class="col-2"><img class="rounded-circle" alt="Low Prices" src="~/Content/Images/price.jpg"></div>
+                <div class="col-lg-6 col-10 ml-2">
+                    <h4>Low Prices</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -205,17 +205,25 @@
     <Compile Include="ViewModels\UserViewModels.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
-    <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\Images\200x200.png" />
-    <Content Include="Content\Images\bg_header.jpg" />
-    <Content Include="Content\Template.css" />
+    <Content Include="Content\floating-labels.css" />
+    <Content Include="Content\Images\copyright.png" />
+    <Content Include="Content\Images\facebook.png" />
+    <Content Include="Content\Images\github.jpg" />
+    <Content Include="Content\Images\bg1.jpg" />
+    <Content Include="Content\Images\bg2.jpg" />
+    <Content Include="Content\Images\bg3.jpg" />
+    <Content Include="Content\Images\linkedin6.png" />
+    <Content Include="Content\Images\price.jpg" />
+    <Content Include="Content\Images\return.jpg" />
+    <Content Include="Content\Images\ship.jpg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
+    <Content Include="Scripts\popper.min.js" />
     <Content Include="Uploads\BookImg\defaultImg.jpg" />
     <Content Include="Content\Images\cart.jpg" />
     <Content Include="Content\Images\error.gif" />
@@ -278,7 +286,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Admin\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

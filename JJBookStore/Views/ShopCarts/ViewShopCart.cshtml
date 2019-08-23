@@ -4,8 +4,9 @@
     ViewBag.Title = "ManageShopCart";
 }
 
-
+<br />
 <h2>Manage Shopping Cart</h2>
+<br />
 @if (Model.scList.Count > 0)
 {
 
@@ -39,18 +40,18 @@
                 @Html.HiddenFor(modelItem => Model.scList[i].ShopCartId)
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => Model.scList[i].Title)
+                        @Html.ActionLink(Model.scList[i].Title, "Details", "Books", new { id = Model.scList[i].BookID }, new { @class="alert-link"})
                         @Html.HiddenFor(modelItem => Model.scList[i].Title)
                     </td>
-                    <td>
-                        <input type="button" value="-" onclick="qclick(false,@i,@Model.scList[i].UnitPrice)">
+                    <td width="150">
+                        <input type="button" value="-" class="btn btn-default btn-sm" onclick="qclick(false,@i,@Model.scList[i].UnitPrice)">
 
                         @Html.TextBoxFor(modelItem => Model.scList[i].Quantity,
-              new { id = i, @readonly = "readonly", style = "width:20px;text-align:center;" })
+              new { id = i, @readonly = "readonly", style = "width:25px;text-align:center;" })
 
                         @Html.ValidationMessageFor(modelItem => Model.scList[i].Quantity, "", new { @class = "text-danger" })
 
-                        <input type="button" value="+" onclick="qclick(true,@i,@Model.scList[i].UnitPrice)">
+                        <input type="button" value="+" class="btn btn-default btn-sm" onclick="qclick(true,@i,@Model.scList[i].UnitPrice)">
                     </td>
 
                     <td>
@@ -61,7 +62,7 @@
                         $@Html.DisplayFor(modelItem => Model.scList[i].UnitPrice)
                         @Html.HiddenFor(modelItem => Model.scList[i].UnitPrice)
                     </td>
-                    <td>
+                    <td width="100">
                         $<span id="@i+subtotal"> @(Model.scList[i].Quantity * Model.scList[i].UnitPrice)</span>
                     </td>
                     <td>
@@ -76,25 +77,25 @@
             <tr>
                 <td align="right" colspan="6">
 
-                    <input type="submit" value="Save Change" name="shopCartButton" class="btn btn-default" />
-                    <input id="remove" type="submit" value="Remove" name="shopCartButton" class="btn btn-default" />
+                    <input type="submit" value="Save Change" name="shopCartButton" class="btn btn-outline-success" />
+                    <input id="remove" type="submit" value="Remove" name="shopCartButton" class="btn btn-outline-danger ml-2" />
                 </td>
             </tr>
             <tr>
                 <td align="right" colspan="6">
-                    <input id="purchasenow" type="submit" value="Purchase Now" name="shopCartButton" class="btn btn-default" />
+                    <input id="purchasenow" type="submit" value="Buy Now" name="shopCartButton" class="btn btn-primary active" />
                 </td>
             </tr>
         </table>
     }
 }
 else
-{
-        <img src = "~/Content/Images/cart.jpg" />
-        <b>Your Shopping Cart is Empty!</b>
+{<br /><br />
+    <h3 class="text-center">Your Shopping Cart is Empty!</h3>
+    <img src="~/Content/Images/cart.jpg" class="rounded mx-auto d-block" />
+    <br /><br />
 }
-    <p>
-        <a href="javascript:history.back()">Go Back</a>
-    </p>
-
-    <script src="~/Scripts/Custom/viewshopcart.js"></script>
+<br />
+<a href="javascript:history.back()" class="btn btn-outline-dark btn-sm">Go Back</a>
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script src="~/Scripts/Custom/viewshopcart.js"></script>

@@ -4,9 +4,9 @@
     ViewBag.Title = "PurchaseIndex";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+<br /><br />
 <h2>PurchaseIndex</h2>
-
+<br />
 <table class="table">
     <tr>
         <th>
@@ -27,24 +27,27 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Quantity)
-        </td>
-        <td>
-           $@Html.DisplayFor(modelItem => item.PurchasedPrice)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PurchasedTime)
-        </td>
-        <td>
-            $<span>@(item.PurchasedPrice*item.Quantity)</span>
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                $@Html.DisplayFor(modelItem => item.PurchasedPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PurchasedTime)
+            </td>
+            <td>
+                $<span>@(item.PurchasedPrice * item.Quantity)</span>
+            </td>
+        </tr>
+    }
 
 </table>
+<br /><br />
+<a href="javascript:history.back()" class="btn btn-outline-dark btn-sm">Go Back</a>

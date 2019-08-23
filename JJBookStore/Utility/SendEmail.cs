@@ -27,11 +27,11 @@ namespace JJBookStore.Utility
             return true;
         }
 
-        public static bool SoldNotification(User user, Book book)
+        public static bool SoldNotification(Book book)
         {
             var body = "<p>Email From: {0} ({1})</p><p>Message:</p><p>{2}</p>";
             var message = new MailMessage();
-            message.To.Add(new MailAddress(user.EmailAddress));  // replace with valid value 
+            message.To.Add(new MailAddress(book.User.EmailAddress));  // replace with valid value 
             message.From = new MailAddress(SenderEmailAddress);  // replace with valid value
             message.Subject = "JJ Book Store: Sold nofitication";
             message.Body = body;
@@ -41,11 +41,11 @@ namespace JJBookStore.Utility
             return true;
         }
 
-        public static bool OutofStockNotification(User user, Book book)
+        public static bool OutofStockNotification(Book book)
         {
             var body = "<p>Email From: {0} ({1})</p><p>Message:</p><p>{2}</p>";
             var message = new MailMessage();
-            message.To.Add(new MailAddress(user.EmailAddress));  // replace with valid value 
+            message.To.Add(new MailAddress(book.User.EmailAddress));  // replace with valid value 
             message.From = new MailAddress(SenderEmailAddress);  // replace with valid value
             message.Subject = "JJ Book Store:Out of stock notification";
             message.Body = body;
@@ -70,6 +70,7 @@ namespace JJBookStore.Utility
                 };
                 //Don't need to send while development period.
                 //smtp.Send(mailMessage);
+
                 //Export to html file to see layout.
                 System.IO.File.WriteAllText("EmailBodyTest.html", mailMessage.Body);
 
