@@ -1,4 +1,5 @@
 ﻿using JJBookStore.Models;
+using JJBookStore.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,14 +12,23 @@ namespace JJBookStore.Utility
 {
     public class SendEmail
     {
+        private static string SenderName = "noreply-JJ Book Store";
         private static string SenderEmailAddress = "zhaozhe2632026@gmail.com";
         private static string SenderPassword = "zhaozhe1005";
         public static bool RegisterConfirmation(User user)
         {
-            var body = "<p>Email From: JJ Book Store(NoReply)</p><p>Message:</p><p>this is a test email</p>";
+            var validateString = MD5Util.Encrypt(user.UserID.ToString() + user.UserName + user.EmailAddress);
+            var validateLink = "http://localhost:1234/Users/NewUserValidation?id=" +
+                user.UserID.ToString() + "&validateString=" + validateString;
+            var body = "<div style='text-align:center'><h3>Thanks For Your Registering! </h3> <p><b>" +
+                "Thank you for registering in JJ Bookstore. Now you are a member of our JJ community." +
+                " Please click the below link to activate your account:</b></p>" + validateLink +
+                "</br></br></br> <p style='font-size:8px'>This is a system generated email sent to" + user.UserName +
+                ". Please do not reply. You're receiving this email because you're a member of the JJ Bookstore. " +
+                "Don't miss out on exclusive offers </p></div>";
             var message = new MailMessage();
-            message.To.Add(new MailAddress(user.EmailAddress));  // replace with valid value 
-            message.From = new MailAddress(SenderEmailAddress);  // replace with valid value
+            message.To.Add(new MailAddress(user.EmailAddress));
+            message.From = new MailAddress(SenderEmailAddress); 
             message.Subject = "JJ Book Store: Register Confirmation";
             message.Body = body;
             message.IsBodyHtml = true;
@@ -27,12 +37,17 @@ namespace JJBookStore.Utility
             return true;
         }
 
-        public static bool SoldNotification(Book book)
+        public static bool SoldNotification(ShopCartViewModel scVM, Book book)
         {
-            var body = "<p>Email From: {0} ({1})</p><p>Message:</p><p>{2}</p>";
+            var body = "<div style='text-align:center'><h3>Book Selling Notification </h3> <p><b>" +
+                "Congratulations! " + scVM.Quantity.ToString() + " of book ABCDEFG has been sold for " +
+                (scVM.Quantity * scVM.UnitPrice).ToString() + "! please check the details in your account.</br>" +
+                "</br></br> <p style='font-size:8px'>This is a system generated email sent to " + book.User.UserName +
+                ". Please do not reply. You're receiving this email because you're a member of the JJ Bookstore. " +
+                "Don't miss out on exclusive offers </p></div>";
             var message = new MailMessage();
-            message.To.Add(new MailAddress(book.User.EmailAddress));  // replace with valid value 
-            message.From = new MailAddress(SenderEmailAddress);  // replace with valid value
+            message.To.Add(new MailAddress(book.User.EmailAddress)); 
+            message.From = new MailAddress(SenderEmailAddress);  
             message.Subject = "JJ Book Store: Sold nofitication";
             message.Body = body;
             message.IsBodyHtml = true;
@@ -45,8 +60,8 @@ namespace JJBookStore.Utility
         {
             var body = "<p>Email From: {0} ({1})</p><p>Message:</p><p>{2}</p>";
             var message = new MailMessage();
-            message.To.Add(new MailAddress(book.User.EmailAddress));  // replace with valid value 
-            message.From = new MailAddress(SenderEmailAddress);  // replace with valid value
+            message.To.Add(new MailAddress(book.User.EmailAddress));  
+            message.From = new MailAddress(SenderEmailAddress);  
             message.Subject = "JJ Book Store:Out of stock notification";
             message.Body = body;
             message.IsBodyHtml = true;
@@ -72,15 +87,15 @@ namespace JJBookStore.Utility
                 //smtp.Send(mailMessage);
 
                 //Export to html file to see layout.
-                System.IO.File.WriteAllText("EmailBodyTest.html", mailMessage.Body);
+                System.IO.File.WriteAllText("C:/Users/Jo/documents/EmailBodyTest.html", mailMessage.Body);
 
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return false;
             }
             return true;
         }
-        
+
     }
 }

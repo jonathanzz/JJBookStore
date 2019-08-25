@@ -198,6 +198,7 @@
     <Compile Include="Models\ShopCart.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utility\MD5Util.cs" />
     <Compile Include="Utility\SendEmail.cs" />
     <Compile Include="ViewModels\BookViewModels.cs" />
     <Compile Include="ViewModels\SaleRecordViewModel.cs" />
@@ -283,6 +284,7 @@
     <Content Include="Views\Errors\NotFound.cshtml" />
     <Content Include="Views\Errors\BadRequest.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Users\NewUserValidation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
