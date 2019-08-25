@@ -17,7 +17,6 @@ namespace JJBookStore.ViewModels
         [Display(Name = "Password")]
         [StringLength(50, MinimumLength = 6, ErrorMessage = "Password should be least 6 characters.")]
         public string Password { get; set; }
-        public bool RememberMe { get; set; }
     }
 
     public class RegisterViewModel
@@ -62,7 +61,7 @@ namespace JJBookStore.ViewModels
             user.FirstName = r.FirstName;
             user.LastName = r.LastName;
             user.Address = r.Address;
-            user.IsValid = false;
+            user.IsValid = true;
             return user;
         }
     }

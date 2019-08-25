@@ -33,20 +33,20 @@ namespace JJBookStore.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = db.Users.FirstOrDefault(u => (u.UserName == s.SignInName || u.EmailAddress == s.SignInName)
+                var user = db.Users.FirstOrDefault(u => (u.UserName == s.SignInName || u.EmailAddress == s.SignInName) 
                                                         && u.Password == s.Password);
                 if (user != null)
                 {
                     if (user.IsValid)
                     {
-                        //   FormsAuthentication.SetAuthCookie(user.UserName, false);
+                     //   FormsAuthentication.SetAuthCookie(user.UserName, false);
                         FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(2, user.UserName, DateTime.Now,
-                        DateTime.Now.AddMinutes(30), s.RememberMe, user.UserID.ToString(), FormsAuthentication.FormsCookiePath);
+                        DateTime.Now.AddMinutes(30), false, user.UserID.ToString(), FormsAuthentication.FormsCookiePath);
                         string encTicket = FormsAuthentication.Encrypt(ticket);
                         // Create the cookie.
                         Response.Cookies.Add(new HttpCookie(FormsAuthentication.FormsCookieName, encTicket));
                         //Temp data to store welcome message as an alert window
-                        TempData["Msg"] = "alert('Welcome Back " + user.UserName + " !')";
+                        TempData["Msg"] = "alert('Welcome Back "+user.UserName+" !')";
                         return RedirectToAction("Index", "Home");
                     }
                     else
@@ -97,7 +97,7 @@ namespace JJBookStore.Controllers
                     return View();
                 }
                 var newUser = new User();
-                db.Users.Add(RegisterViewModel.ConvertToUser(r, newUser));
+                db.Users.Add(RegisterViewModel.ConvertToUser(r,newUser));
                 await db.SaveChangesAsync();
                 if (SendEmail.RegisterConfirmation(newUser))
                 {
@@ -106,7 +106,7 @@ namespace JJBookStore.Controllers
                 }
                 else
                 {
-                    return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
+                    //return error;
                 }
                 return RedirectToAction("SignIn", "Users");
             }
@@ -115,25 +115,11 @@ namespace JJBookStore.Controllers
         }
 
         //GET: Users/NewUserValidation/id=?&&validString=?
-        public async Task<ActionResult> NewUserValidation(int id, string validateString)
+        public ActionResult NewUserValidation(int id, string validString)
         {
             User user = db.Users.Find(id);
-            if (user == null)
-            {
-                return HttpNotFound();
-            }
-            if (!MD5Util.Decrypt(validateString).Equals(user.UserID.ToString()+user.UserName + user.EmailAddress))
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            if (user.IsValid == true)
-            {
-                return View(false);
-            }
-            user.IsValid = true;
-            db.Entry(user).State = EntityState.Modified;
-            await db.SaveChangesAsync();
-            return View(true);
+            //if (user.) { TO BE DONE } 
+            return View();
         }
 
 
@@ -148,7 +134,7 @@ namespace JJBookStore.Controllers
             {
                 return HttpNotFound();
             }
-
+            
             return View(new EditUserViewModel(user));
         }
 

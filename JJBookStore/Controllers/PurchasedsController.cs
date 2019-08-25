@@ -75,7 +75,7 @@ namespace JJBookStore.Controllers
                             }
                             else
                             {
-                                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
+                                //return error
                             }
                         }
 
@@ -83,9 +83,9 @@ namespace JJBookStore.Controllers
                         db.Entry(book).State = EntityState.Modified;
                         db.Purchaseds.Add(new Purchased(shopcart, scVm.Quantity));
                         db.ShopCarts.Remove(shopcart);                                  //Remove purchased items from shopcart
-                        if (!SendEmail.SoldNotification(scVm, book))
+                        if (!SendEmail.SoldNotification(book))
                         {
-                            return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
+                            //return error
                         }
                     }
                 }

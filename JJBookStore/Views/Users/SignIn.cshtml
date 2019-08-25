@@ -19,21 +19,19 @@
             <div class="editor-field">
                 @Html.TextBoxFor(u => u.SignInName)
             </div>
-            @Html.ValidationMessageFor(u => u.SignInName, null, new { @class = "text-danger" })
+            @Html.ValidationMessageFor(u => u.SignInName,null, new { @class = "text-danger" })
             <br />
             <div class="editor-label">@Html.LabelFor(u => u.Password)</div>
             <div class="editor-field">
                 @Html.PasswordFor(u => u.Password)
             </div>
             @Html.ValidationMessageFor(u => u.Password, null, new { @class = "text-danger" })
-            <br />
-            <div style="font-size:13px">
-                remember me? @Html.CheckBoxFor(u => u.RememberMe,new { @class = "ml-1"})
-                    </div>
+
             <br />
             <input type="submit" value="Sign In" class="btn btn-outline-primary btn-sm" />
         </fieldset>
+        <br />
+        <p>If you don't have an account, please <a>@Html.ActionLink("Register", "Register", "Users")</a> here.</p>
+        
     </div>
-}
-<br />
-<p class="text-center" style="font:italic;font-size:14px">If you don't have an account, please <a>@Html.ActionLink("Register", "Register", "Users")</a> here.</p>
+}  
