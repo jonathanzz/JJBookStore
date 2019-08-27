@@ -10,9 +10,8 @@ using System.Web;
 
 namespace JJBookStore.Utility
 {
-    public class SendEmail
+    public class EmailUtil
     {
-        private static string SenderName = "noreply-JJ Book Store";
         private static string SenderEmailAddress = "zhaozhe2632026@gmail.com";
         private static string SenderPassword = "zhaozhe1005";
         public static bool RegisterConfirmation(User user)
@@ -58,7 +57,12 @@ namespace JJBookStore.Utility
 
         public static bool OutofStockNotification(Book book)
         {
-            var body = "<p>Email From: {0} ({1})</p><p>Message:</p><p>{2}</p>";
+            var body = "<div style='text-align:center'><h3>Book Selling Notification </h3> <p><b>" +
+               "Attention! Your selling book "+book.Title+ " at JJ Bookstore is out of stock now, and "+
+               "it has been removed from sale list. Please manully edit your book detail if it still on selling."+
+               "</br></br> <p style='font-size:8px'>This is a system generated email sent to " + book.User.UserName +
+               ". Please do not reply. You're receiving this email because you're a member of the JJ Bookstore. " +
+               "Don't miss out on exclusive offers </p></div>";
             var message = new MailMessage();
             message.To.Add(new MailAddress(book.User.EmailAddress));  
             message.From = new MailAddress(SenderEmailAddress);  

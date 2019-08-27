@@ -69,7 +69,7 @@ namespace JJBookStore.Controllers
                         else if (book.StockQty == scVm.Quantity)
                         {
                             //Send Email to tell seller that one item is out of stock.
-                            if (SendEmail.OutofStockNotification(book))
+                            if (EmailUtil.OutofStockNotification(book))
                             {
                                 book.OnSell = false;
                             }
@@ -83,7 +83,7 @@ namespace JJBookStore.Controllers
                         db.Entry(book).State = EntityState.Modified;
                         db.Purchaseds.Add(new Purchased(shopcart, scVm.Quantity));
                         db.ShopCarts.Remove(shopcart);                                  //Remove purchased items from shopcart
-                        if (!SendEmail.SoldNotification(scVm, book))
+                        if (!EmailUtil.SoldNotification(scVm, book))
                         {
                             return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
                         }

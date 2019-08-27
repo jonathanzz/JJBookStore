@@ -99,7 +99,7 @@ namespace JJBookStore.Controllers
                 var newUser = new User();
                 db.Users.Add(RegisterViewModel.ConvertToUser(r, newUser));
                 await db.SaveChangesAsync();
-                if (SendEmail.RegisterConfirmation(newUser))
+                if (EmailUtil.RegisterConfirmation(newUser))
                 {
                     TempData["Msg"] = "alert('Congratulations! You have been registered successfully! " +
                         "Please click the validation link in your Email box to validate your account.')";
