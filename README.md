@@ -9,7 +9,7 @@ For user: Register, Sign in, Sign out, Show profile, Edit profile, Change passwo
 For book: Create, Edit, Show details, Add to shopping cart, Delete
 
 
-*
+********************************************************************************************************************
 ## Things to do 
 #### 13/8 Tue
 - Hidden URL parameters while doing GET request(ie. user detail)(DONE)
