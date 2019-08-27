@@ -1,0 +1,31 @@
+﻿@model Boolean
+@{ ViewBag.Title = "New User Validation";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script>
+
+    setTimeout(function () { window.location.href = "\Users\SignIn" }, 10000);
+</script>
+<h2>New User Validation</h2>
+<br /><br /><br /><br /><br /><br />
+<center>
+    @if (Model)
+    {
+        <p>
+            <h3>Congratulations! Your account is validated now, please Sign in and enjoy your shopping!</h3>
+        </p>
+    }
+    else
+    {
+        <p>
+            <h3> Your account has already been validated before, please do not click the validation link again.</h3>
+        </p>
+    }
+    <p>
+        <h4>This page will redirect to Sign In page automatically in 10 seconds, or click @Html.ActionLink("here", "SignIn", "Users") to redirect now.</h4>
+    </p>
+
+</center>
+<br /><br /><br /><br /><br /><br />
+

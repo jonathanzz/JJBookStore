@@ -15,7 +15,7 @@
         @Html.AntiForgeryToken()
         @Html.ValidationSummary(true, "ShopCartAction", new { @class = "text-danger" })
         <table class="table">
-            <tr>
+            <tr class="table-bordered table-secondary">
                 <th>
                     @Html.DisplayNameFor(model => model.scList.FirstOrDefault().Title)
                 </th>
