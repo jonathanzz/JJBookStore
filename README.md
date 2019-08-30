@@ -9,7 +9,7 @@ For user: Register, Sign in, Sign out, Show profile, Edit profile, Change passwo
 For book: Create, Edit, Show details, Add to shopping cart, Delete
 
 
-********************************************************************************************************
+********************************************************************************************************************
 ## Things to do 
 #### 13/8 Tue
 - Hidden URL parameters while doing GET request(ie. user detail)(DONE)
@@ -41,7 +41,7 @@ For book: Create, Edit, Show details, Add to shopping cart, Delete
 - Sellers inspect sales-records for each selling book.(DONE)
 - Inner website message function between users.(Abandoned)
 - Check if at least one checkbox been checked before submitting at shopping cart(DONE JQuery)
-*******************************************************************************************************
+
 #### 20/8 Tue
 - User Telerik UI to build an Administration Database Management site.(DONE)
 - Add ForeignKey Column into Admin Site, and optimize the layout.(DONE)
@@ -49,6 +49,7 @@ For book: Create, Edit, Show details, Add to shopping cart, Delete
 #### 21/8 Wed
 - Find an easiest way to use Dreamwaver UI template to improve UI.
 - Users shouldn't be able to purchase a book which seller is themselves.
+***************************************************************************************************************
 
 ## Getting Started
 
