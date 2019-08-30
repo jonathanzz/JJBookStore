@@ -164,6 +164,15 @@ namespace JJBookStore.Controllers
                 User user = await db.Users.FindAsync(e.UserID);
                 if (user == null)
                     return HttpNotFound();
+                if (!e.EmailAddress.Equals(user.EmailAddress))
+                {
+                    var checkUser = db.Users.FirstOrDefault(u => u.EmailAddress == e.EmailAddress);
+                    if (checkUser != null)
+                    {
+                        ModelState.AddModelError("", "Sorry! This Email address has been registered, please try another one");
+                        return View();
+                    }
+                }
                 user = EditUserViewModel.ConvertToUser(e, user);
                 db.Entry(user).State = EntityState.Modified;
                 await db.SaveChangesAsync();

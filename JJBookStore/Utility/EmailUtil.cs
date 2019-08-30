@@ -21,8 +21,8 @@ namespace JJBookStore.Utility
                 user.UserID.ToString() + "&validateString=" + validateString;
             var body = "<div style='text-align:center'><h3>Thanks For Your Registering! </h3> <p><b>" +
                 "Thank you for registering in JJ Bookstore. Now you are a member of our JJ community." +
-                " Please click the below link to activate your account:</b></p>" + validateLink +
-                "</br></br></br> <p style='font-size:8px'>This is a system generated email sent to" + user.UserName +
+                " Please click the below link to activate your account:</b></p><a>" + validateLink +
+                "</a></br></br></br> <p style='font-size:8px'>This is a system generated email sent to" + user.UserName +
                 ". Please do not reply. You're receiving this email because you're a member of the JJ Bookstore. " +
                 "Don't miss out on exclusive offers </p></div>";
             var message = new MailMessage();
@@ -91,10 +91,11 @@ namespace JJBookStore.Utility
                 //smtp.Send(mailMessage);
 
                 //Export to html file to see layout.
-                System.IO.File.WriteAllText("C:/Users/Jo/documents/EmailBodyTest.html", mailMessage.Body);
+                var path = HttpContext.Current.Server.MapPath("~/Content/EmailBodyTest.html");
+                System.IO.File.WriteAllText(path, mailMessage.Body);
 
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return false;
             }
