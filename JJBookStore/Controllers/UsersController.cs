@@ -98,7 +98,6 @@ namespace JJBookStore.Controllers
                 }
                 var newUser = new User();
                 db.Users.Add(RegisterViewModel.ConvertToUser(r, newUser));
-                await db.SaveChangesAsync();
                 if (EmailUtil.RegisterConfirmation(newUser))
                 {
                     TempData["Msg"] = "alert('Congratulations! You have been registered successfully! " +
@@ -108,6 +107,7 @@ namespace JJBookStore.Controllers
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
                 }
+                await db.SaveChangesAsync();
                 return RedirectToAction("SignIn", "Users");
             }
 

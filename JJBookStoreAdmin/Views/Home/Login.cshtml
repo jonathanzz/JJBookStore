@@ -9,19 +9,19 @@
 @using (Html.BeginForm("Login", "Home", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true);
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <div>
         <fieldset>
             <legend>Please Login Here</legend>
             <div class="editor-label">@Html.LabelFor(u => u.AdminName)</div>
             <div class="editor-field">
                 @Html.TextBoxFor(u => u.AdminName)
-                @Html.ValidationMessageFor(u => u.AdminName)
+                @Html.ValidationMessageFor(u => u.AdminName, "", new { @class = "text-danger" })
             </div>
             <div class="editor-label">@Html.LabelFor(u => u.AmPassword)</div>
             <div class="editor-field">
                 @Html.PasswordFor(u => u.AmPassword)
-                @Html.ValidationMessageFor(u => u.AmPassword)
+                @Html.ValidationMessageFor(u => u.AmPassword, "", new { @class = "text-danger" })
             </div>
             <input type="submit" value="Login" />
         </fieldset>
