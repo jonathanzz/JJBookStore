@@ -49,6 +49,28 @@ For book: Create, Edit, Show details, Add to shopping cart, Delete
 #### 21/8 Wed
 - Find an easiest way to use Dreamwaver UI template to improve UI.
 - Users shouldn't be able to purchase a book which seller is themselves.
+
+### Deploy on server
+#### Server Environment
+```
+- Instance: AWS EC2 Instance
+- AMI: Microsoft Windows Server 2019 Base
+- Database: MS SQL Express 2016
+- IIS Management with .NET 4.7
+```
+
+#### Common bugs fix after deploy
+- Set Sql Server new login to app-pool user in SSMS Security table
+- Generate new Elastic IP address for aws ec2 instance
+- Map domain name to Elastic ip address at route 53 by adding a new hosted zones
+- Add new security group and set inbound rule and allow to access to specific port(e.g. port 80)
+- Modify Data-souce attribute in connection string at web.config
+- Replace all absolute path and url with relative ones
+- Set security permission of folder "Upload" as everyone can write and read
+- BundleConfig abandoned, import js and css file in traditional way 
+- Do not have a SMTP Email account, so ban auto email function temporarily
+
+
 ***************************************************************************************************************
 
 ## Getting Started
@@ -98,28 +120,7 @@ A step by step series of examples that tell you how to get a development env run
 Say what the step will be
 
 
-
 End with an example of getting some data out of the system or using it for a little demo
-
-## Running the tests
-
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
 
 ## Deployment
 
