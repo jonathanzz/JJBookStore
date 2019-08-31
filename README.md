@@ -53,10 +53,10 @@ For book: Create, Edit, Show details, Add to shopping cart, Delete
 ### Deploy on server
 #### Server Environment
 ```
-- Instance: AWS EC2 Instance
-- AMI: Microsoft Windows Server 2019 Base
-- Database: MS SQL Express 2016
-- IIS Management with .NET 4.7
+Instance: AWS EC2 Instance
+AMI: Microsoft Windows Server 2019 Base
+Database: MS SQL Express 2016
+IIS Management with .NET 4.7
 ```
 
 #### Common bugs fix after deploy
